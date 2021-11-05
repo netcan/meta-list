@@ -11,11 +11,11 @@ template<auto...>
 struct ValueList {};
 
 template<auto... values>
-inline constexpr ValueList<values...> value_list {};
+inline constexpr ValueList<values...> value_list{};
 
 template<auto... lhs, auto... rhs>
 consteval bool operator==(ValueList<lhs...>, ValueList<rhs...>) {
-    return ( (lhs == rhs) && ...);
+    return ((lhs == rhs) && ...);
 }
 
 VALUE_LIST_NS_END

@@ -4,6 +4,7 @@
 
 #ifndef VALUE_LIST_TRANSFORM_H
 #define VALUE_LIST_TRANSFORM_H
+
 #include <value-list/types/value_list_t.h>
 #include <value-list/value_list_ns.h>
 
