@@ -13,6 +13,7 @@ add_executable(value_list_ut
         include/value-list/value_list_ns.h
         include/value-list/types/value_list_t.h
         include/value-list/types/type_c.h
+        include/value-list/types/value_c.h
         third_party/catch_amalgamated.cpp
-        )
+        include/value-list/types/dispatch_value.h)
 

@@ -4,6 +4,7 @@
 
 #ifndef VALUE_LIST_VALUE_LIST_H
 #define VALUE_LIST_VALUE_LIST_H
+#include <value-list/types/dispatch_value.h>
 #include <value-list/value_list_ns.h>
 VALUE_LIST_NS_BEGIN
 
@@ -11,7 +12,7 @@ template<auto...>
 struct ValueList {};
 
 template<auto... values>
-inline constexpr ValueList<values...> value_list{};
+inline constexpr ValueList<dispatch_value<values>...> value_list{};
 
 template<auto... lhs, auto... rhs>
 consteval bool operator==(ValueList<lhs...>, ValueList<rhs...>) {

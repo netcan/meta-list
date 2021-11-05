@@ -10,10 +10,11 @@ VALUE_LIST_NS_BEGIN
 template<typename T>
 struct TypeConst {
     using type = T;
+    constexpr static bool is_type_const = true;
 };
 
 template<typename T>
-inline constexpr TypeConst<T> tc;
+inline constexpr TypeConst<T> t;
 
 template<typename L, typename R>
 consteval bool operator==(TypeConst<L>, TypeConst<R>) {
