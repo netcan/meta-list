@@ -6,6 +6,7 @@
 #define VALUE_LIST_TYPE_C_H
 #include <type_traits>
 #include <value-list/value_list_ns.h>
+
 VALUE_LIST_NS_BEGIN
 template<typename T>
 struct TypeConst {

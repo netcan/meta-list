@@ -10,6 +10,7 @@ VALUE_LIST_NS_BEGIN
 template<auto v>
 struct ValueConst {
     constexpr static auto value = v;
+    constexpr static bool is_value_const = true;
     consteval operator decltype(v)() {
         return v;
     }

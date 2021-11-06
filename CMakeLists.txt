@@ -15,5 +15,5 @@ add_executable(value_list_ut
         include/value-list/types/type_c.h
         include/value-list/types/value_c.h
         third_party/catch_amalgamated.cpp
-        include/value-list/types/dispatch_value.h)
+        include/value-list/types/dispatch_value.h include/value-list/algo/pipe_adapter.h)
 

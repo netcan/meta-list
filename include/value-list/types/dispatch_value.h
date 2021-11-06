@@ -13,7 +13,12 @@ template<auto value>
 inline constexpr auto dispatch_value = v<value>;
 
 template<auto value>
-requires(value.is_type_const) inline constexpr auto dispatch_value<value> = value;
+requires(value.is_value_const)
+inline constexpr auto dispatch_value<value> = dispatch_value<value.value>;
+
+template<auto value>
+requires(value.is_type_const)
+inline constexpr auto dispatch_value<value> = value;
 
 VALUE_LIST_NS_END
 #endif //VALUE_LIST_DISPATCH_VALUE_H
