@@ -11,7 +11,8 @@
 VALUE_LIST_NS_BEGIN
 // TODO: constraint f
 inline constexpr auto transform = PipeAdapter(
-        []<auto... values, typename F>(ValueList<values...>, F f) {
+        []<auto... values, typename F>(ValueList<values...>, F f)
+        -> concepts::list auto {
             return value_list<f(values)...>;
         });
 VALUE_LIST_NS_END

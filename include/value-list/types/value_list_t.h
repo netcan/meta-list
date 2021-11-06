@@ -21,20 +21,6 @@ struct ValueList {
             return ValueList<Rest{}...>{};
         }(vs...);
     }
-///////////////////////////////////////////////////////////////////////////////
-    template<auto... v>
-    consteval auto append() const {
-        return ValueList<vs..., dispatch_value<v>...>{};
-    }
-    template<typename... T>
-    consteval auto append() const { return append<t<T>...>(); }
-///////////////////////////////////////////////////////////////////////////////
-    template<auto... v>
-    consteval auto prepend() const {
-        return ValueList<dispatch_value<v>..., vs...>{};
-    }
-    template<typename... T>
-    consteval auto prepend() const { return prepend<t<T>...>(); }
 };
 
 template<auto... values>

@@ -5,6 +5,9 @@
 #include <catch_amalgamated.hpp>
 #include <value-list/algo/transform.h>
 #include <value-list/algo/filter.h>
+#include <value-list/algo/fold_left.h>
+#include <value-list/algo/append.h>
+#include <value-list/algo/prepend.h>
 #include <value-list/types/type_c.h>
 
 using namespace VALUE_LIST_NS;
@@ -27,23 +30,26 @@ TEST_CASE("value_list") {
     }
 
     SECTION("append value") {
-        constexpr auto res = vl.append<1, 2>();
+        constexpr auto res = append(vl, v<1>, v<2>);
         STATIC_REQUIRE(res == value_list<1, 2>);
     }
 
     SECTION("append type") {
         {
-            constexpr auto res = vl.append<t<int>, t<double>>();
+            constexpr auto res = vl | append(t<int>, t<double>);
             STATIC_REQUIRE(res == value_list<t<int>, t<double>>);
         }
         {
-            constexpr auto res = vl.append<int, double>();
+            constexpr auto res = append(vl, t<int>, t<double>);
             STATIC_REQUIRE(res == value_list<t<int>, t<double>>);
         }
     }
 
     SECTION("prepend value") {
-        constexpr auto res = vl.prepend<1>().prepend<2>();
+        constexpr auto res = vl
+                | prepend(v<1>)
+                | prepend(v<2>)
+                ;
         STATIC_REQUIRE(res == value_list<2, 1>);
     }
 
@@ -67,7 +73,7 @@ TEST_CASE("adapter") {
         STATIC_REQUIRE(res == value_list<2, 4>);
     }
 }
-//
+
 TEST_CASE("transform") {
     SECTION("value level") {
         constexpr auto vl = value_list<1, 2, 3, 4>;
@@ -77,10 +83,10 @@ TEST_CASE("transform") {
 
     SECTION("type level: add_pointer_t") {
         constexpr auto vl = value_list<t<int>, t<char>, t<double>>;
-        constexpr auto result = transform(vl, []<typename T>(TypeConst <T>) {
+        constexpr auto result = transform(vl, []<typename T>(TypeConst<T>) {
             return t<std::add_pointer_t<T>>;
         });
-        STATIC_REQUIRE(result == value_list <t<int*>, t<char*>, t<double*>>);
+        STATIC_REQUIRE(result == value_list<t<int*>, t<char*>, t<double*>>);
     }
 
     SECTION("type level: if constexpr") {
@@ -100,14 +106,34 @@ TEST_CASE("filter") {
     SECTION("value level") {
         constexpr auto vl = value_list<1, 2, 3, 4>;
         constexpr auto res = vl | filter([](auto v) { return v < 3; });
-        STATIC_REQUIRE(res == value_list < 1, 2 >);
+        STATIC_REQUIRE(res == value_list<1, 2>);
     }
 
     SECTION("type level") {
-        constexpr auto vl = value_list < t < int >, t<double>, t<char>, t<float>, t<char>, t<short>>;
-        constexpr auto res = vl | filter([]<typename T>(TypeConst <T>) { return sizeof(T) < 4; });
-        STATIC_REQUIRE(res == value_list < t < char >, t < char >, t < short >>);
+        constexpr auto vl = value_list<t<int>, t<double>, t<char>, t<float>, t<char>, t<short>>;
+        constexpr auto res = vl | filter([]<typename T>(TypeConst<T>) { return sizeof(T) < 4; });
+        STATIC_REQUIRE(res == value_list<t<char>, t<char>, t<short>>);
     }
+}
+
+TEST_CASE("map filter") {
+    constexpr auto vl = value_list<1,2,3,4,5,6,7,8,9,10>;
+    constexpr auto res = vl
+            | transform([](auto x) { return x * x; })
+            | filter([](auto x) { return x < 10; })
+            ;
+    STATIC_REQUIRE(res == value_list<1,4,9>);
+}
+
+TEST_CASE("fold_left") {
+    SECTION("type level") {
+        constexpr auto result = value_list<t<int>, t<float>, t<double>>
+                              | fold_left(value_list<>, [](concepts::list auto acc, auto elem)
+                                                          { return acc | append(elem); })
+                              ;
+        STATIC_REQUIRE(result == value_list<t<int>, t<float>, t<double>>);
+    }
+
 }
 
 TEST_CASE("test") {
