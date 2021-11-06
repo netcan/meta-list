@@ -15,7 +15,7 @@ add_executable(value_list_ut
         include/value-list/types/type_c.hpp
         include/value-list/types/value_c.hpp
         third_party/catch_amalgamated.cpp
-        include/value-list/types/dispatch_value.hpp include/value-list/algo/pipe_adapter.hpp include/value-list/algo/filter.hpp include/value-list/concept/list.hpp include/value-list/algo/fold_left.hpp include/value-list/algo/append.hpp include/value-list/algo/prepend.hpp include/value-list/concept/value_or_type.hpp)
+        include/value-list/types/dispatch_value.hpp include/value-list/algo/pipe_adapter.hpp include/value-list/algo/filter.hpp include/value-list/concept/list.hpp include/value-list/algo/fold_left.hpp include/value-list/algo/append.hpp include/value-list/algo/prepend.hpp include/value-list/concept/value_or_type.hpp include/value-list/algo/concat.hpp)
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
 target_link_libraries(value_list_ut stdc++ m)

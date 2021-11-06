@@ -8,6 +8,7 @@
 #include <value-list/algo/fold_left.hpp>
 #include <value-list/algo/append.hpp>
 #include <value-list/algo/prepend.hpp>
+#include <value-list/algo/concat.hpp>
 #include <value-list/types/type_c.hpp>
 
 using namespace VALUE_LIST_NS;
@@ -133,7 +134,12 @@ TEST_CASE("fold_left") {
                               ;
         STATIC_REQUIRE(result == value_list<t<int>, t<float>, t<double>>);
     }
+}
 
+TEST_CASE("concat") {
+    constexpr auto vl = value_list<t<long>, t<char>, t<int>, t<double>, t<float>>;
+    STATIC_REQUIRE(vl == concat(value_list<t<long>, t<char>>, value_list<t<int>, t<double>, t<float>>));
+    STATIC_REQUIRE(vl == concat(value_list<t<long>, t<char>>, value_list<t<int>>, value_list<t<double>, t<float>>));
 }
 
 TEST_CASE("test") {
