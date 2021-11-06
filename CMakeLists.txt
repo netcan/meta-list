@@ -10,12 +10,12 @@ include_directories(
 
 add_executable(value_list_ut
         test/ut/test_value_list.cpp
-        include/value-list/value_list_ns.h
-        include/value-list/types/value_list_t.h
-        include/value-list/types/type_c.h
-        include/value-list/types/value_c.h
+        include/value-list/value_list_ns.hpp
+        include/value-list/types/value_list_t.hpp
+        include/value-list/types/type_c.hpp
+        include/value-list/types/value_c.hpp
         third_party/catch_amalgamated.cpp
-        include/value-list/types/dispatch_value.h include/value-list/algo/pipe_adapter.h include/value-list/algo/filter.h include/value-list/concept/list.h include/value-list/algo/fold_left.h include/value-list/algo/append.h include/value-list/algo/prepend.h include/value-list/concept/value_or_type.h)
+        include/value-list/types/dispatch_value.hpp include/value-list/algo/pipe_adapter.hpp include/value-list/algo/filter.hpp include/value-list/concept/list.hpp include/value-list/algo/fold_left.hpp include/value-list/algo/append.hpp include/value-list/algo/prepend.hpp include/value-list/concept/value_or_type.hpp)
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
 target_link_libraries(value_list_ut stdc++ m)

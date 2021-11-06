@@ -2,10 +2,10 @@
 // Created by netcan on 2021/11/5.
 //
 
-#ifndef VALUE_LIST_TYPE_C_H
-#define VALUE_LIST_TYPE_C_H
+#ifndef VALUE_LIST_TYPE_C_HPP
+#define VALUE_LIST_TYPE_C_HPP
 #include <type_traits>
-#include <value-list/value_list_ns.h>
+#include <value-list/value_list_ns.hpp>
 
 VALUE_LIST_NS_BEGIN
 template<typename T>
@@ -23,4 +23,4 @@ consteval bool operator==(TypeConst<L>, TypeConst<R>) {
 }
 
 VALUE_LIST_NS_END
-#endif //VALUE_LIST_TYPE_C_H
+#endif //VALUE_LIST_TYPE_C_HPP

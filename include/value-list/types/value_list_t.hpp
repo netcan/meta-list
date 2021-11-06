@@ -4,8 +4,8 @@
 
 #ifndef VALUE_LIST_VALUE_LIST_H
 #define VALUE_LIST_VALUE_LIST_H
-#include <value-list/types/dispatch_value.h>
-#include <value-list/value_list_ns.h>
+#include <value-list/types/dispatch_value.hpp>
+#include <value-list/value_list_ns.hpp>
 VALUE_LIST_NS_BEGIN
 
 template<concepts::val_or_typ auto... vs>

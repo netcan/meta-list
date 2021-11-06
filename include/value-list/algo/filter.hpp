@@ -2,11 +2,11 @@
 // Created by netcan on 2021/11/6.
 //
 
-#ifndef VALUE_LIST_FILTER_H
-#define VALUE_LIST_FILTER_H
-#include <value-list/concept/list.h>
-#include <value-list/algo/pipe_adapter.h>
-#include <value-list/algo/prepend.h>
+#ifndef VALUE_LIST_FILTER_HPP
+#define VALUE_LIST_FILTER_HPP
+#include <value-list/concept/list.hpp>
+#include <value-list/algo/pipe_adapter.hpp>
+#include <value-list/algo/prepend.hpp>
 VALUE_LIST_NS_BEGIN
 struct FilterFn {
     template<concepts::list VL, typename F>
@@ -26,4 +26,4 @@ struct FilterFn {
 
 inline constexpr auto filter = PipeAdapter<FilterFn>{};
 VALUE_LIST_NS_END
-#endif //VALUE_LIST_FILTER_H
+#endif //VALUE_LIST_FILTER_HPP

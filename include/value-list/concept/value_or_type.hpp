@@ -2,9 +2,9 @@
 // Created by netcan on 2021/11/6.
 //
 
-#ifndef VALUE_LIST_VALUE_OR_TYPE_H
-#define VALUE_LIST_VALUE_OR_TYPE_H
-#include <value-list/value_list_ns.h>
+#ifndef VALUE_LIST_VALUE_OR_TYPE_HPP
+#define VALUE_LIST_VALUE_OR_TYPE_HPP
+#include <value-list/value_list_ns.hpp>
 VALUE_LIST_NS_BEGIN
 namespace concepts {
 template<typename T>
@@ -23,4 +23,4 @@ template<typename T>
 concept val_or_typ = value_const<T> || type_const<T>;
 }
 VALUE_LIST_NS_END
-#endif //VALUE_LIST_VALUE_OR_TYPE_H
+#endif //VALUE_LIST_VALUE_OR_TYPE_HPP

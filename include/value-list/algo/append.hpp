@@ -2,10 +2,10 @@
 // Created by netcan on 2021/11/6.
 //
 
-#ifndef VALUE_LIST_APPEND_H
-#define VALUE_LIST_APPEND_H
-#include <value-list/concept/list.h>
-#include <value-list/algo/pipe_adapter.h>
+#ifndef VALUE_LIST_APPEND_HPP
+#define VALUE_LIST_APPEND_HPP
+#include <value-list/concept/list.hpp>
+#include <value-list/algo/pipe_adapter.hpp>
 VALUE_LIST_NS_BEGIN
 
 inline constexpr auto append = PipeAdapter(
@@ -15,4 +15,4 @@ inline constexpr auto append = PipeAdapter(
         });
 
 VALUE_LIST_NS_END
-#endif //VALUE_LIST_APPEND_H
+#endif //VALUE_LIST_APPEND_HPP

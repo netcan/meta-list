@@ -2,13 +2,13 @@
 // Created by netcan on 2021/11/06.
 //
 
-#ifndef VALUE_LIST_PIPE_ADAPTER_H
-#define VALUE_LIST_PIPE_ADAPTER_H
+#ifndef VALUE_LIST_PIPE_ADAPTER_HPP
+#define VALUE_LIST_PIPE_ADAPTER_HPP
 #include <concepts>
 #include <type_traits>
-#include <value-list/types/value_list_t.h>
-#include <value-list/concept/list.h>
-#include <value-list/value_list_ns.h>
+#include <value-list/types/value_list_t.hpp>
+#include <value-list/concept/list.hpp>
+#include <value-list/value_list_ns.hpp>
 VALUE_LIST_NS_BEGIN
 
 template<typename Fn>
@@ -36,4 +36,4 @@ consteval auto operator|(VL vl, Adapter adapter) {
 }
 
 VALUE_LIST_NS_END
-#endif //VALUE_LIST_PIPE_ADAPTER_H
+#endif //VALUE_LIST_PIPE_ADAPTER_HPP

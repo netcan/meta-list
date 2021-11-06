@@ -2,9 +2,9 @@
 // Created by netcan on 2021/11/5.
 //
 
-#ifndef VALUE_LIST_VALUE_C_H
-#define VALUE_LIST_VALUE_C_H
-#include <value-list/value_list_ns.h>
+#ifndef VALUE_LIST_VALUE_C_HPP
+#define VALUE_LIST_VALUE_C_HPP
+#include <value-list/value_list_ns.hpp>
 VALUE_LIST_NS_BEGIN
 
 template<auto v>
@@ -28,4 +28,4 @@ consteval bool operator==(ValueConst<l>, ValueConst<r>) {
 }
 
 VALUE_LIST_NS_END
-#endif //VALUE_LIST_VALUE_C_H
+#endif //VALUE_LIST_VALUE_C_HPP

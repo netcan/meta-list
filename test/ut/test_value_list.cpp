@@ -3,12 +3,12 @@
 //
 
 #include <catch_amalgamated.hpp>
-#include <value-list/algo/transform.h>
-#include <value-list/algo/filter.h>
-#include <value-list/algo/fold_left.h>
-#include <value-list/algo/append.h>
-#include <value-list/algo/prepend.h>
-#include <value-list/types/type_c.h>
+#include <value-list/algo/transform.hpp>
+#include <value-list/algo/filter.hpp>
+#include <value-list/algo/fold_left.hpp>
+#include <value-list/algo/append.hpp>
+#include <value-list/algo/prepend.hpp>
+#include <value-list/types/type_c.hpp>
 
 using namespace VALUE_LIST_NS;
 
