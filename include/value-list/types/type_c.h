@@ -11,7 +11,6 @@ VALUE_LIST_NS_BEGIN
 template<typename T>
 struct TypeConst {
     using type = T;
-    constexpr static bool is_value_const = false;
     constexpr static bool is_type_const = true;
 };
 

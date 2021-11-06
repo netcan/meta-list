@@ -8,8 +8,7 @@
 #include <value-list/value_list_ns.h>
 VALUE_LIST_NS_BEGIN
 
-template<auto... vs>
-requires ((vs.is_value_const || vs.is_type_const) && ...)
+template<concepts::val_or_typ auto... vs>
 struct ValueList {
     constexpr static bool is_value_list = true;
     consteval size_t size() const { return sizeof...(vs); }

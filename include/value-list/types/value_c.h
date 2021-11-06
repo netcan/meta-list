@@ -13,7 +13,6 @@ struct ValueConst {
 
     constexpr static auto value = v;
     constexpr static bool is_value_const = true;
-    constexpr static bool is_type_const = false;
 
     consteval operator decltype(v)() const {
         return v;

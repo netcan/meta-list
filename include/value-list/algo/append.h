@@ -9,9 +9,8 @@
 VALUE_LIST_NS_BEGIN
 
 inline constexpr auto append = PipeAdapter(
-        []<auto ...values, typename... Es>(ValueList<values...> vl, Es...)
-        -> concepts::list auto
-        requires ((Es::is_value_const || Es::is_type_const) && ...) {
+        []<auto ...values, concepts::val_or_typ... Es>(ValueList<values...> vl, Es...)
+        -> concepts::list auto {
             return ValueList<values..., Es{}...>{};
         });
 
