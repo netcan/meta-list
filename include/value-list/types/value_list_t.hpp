@@ -28,7 +28,8 @@ inline constexpr ValueList<dispatch_value<values>...> value_list{};
 
 template<auto... lhs, auto... rhs>
 consteval bool operator==(ValueList<lhs...>, ValueList<rhs...>) {
-    return ((lhs == rhs) && ...);
+    if constexpr (sizeof...(lhs) != sizeof...(rhs)) { return false; }
+    else { return ((lhs == rhs) && ...); }
 }
 VALUE_LIST_NS_END
 #endif //VALUE_LIST_VALUE_LIST_H
