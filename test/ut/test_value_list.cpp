@@ -118,13 +118,14 @@ TEST_CASE("filter") {
     }
 }
 
-TEST_CASE("map filter") {
+TEST_CASE("map filter fold") {
     constexpr auto vl = value_list<1,2,3,4,5,6,7,8,9,10>;
     constexpr auto res = vl
             | transform([](auto x) { return x * x; })
-            | filter([](auto x) { return x < 10; })
+            | filter([](auto x) { return x < 30; })
+            | fold_left(v<0>, [](auto acc, auto n) { return acc + n; })
             ;
-    STATIC_REQUIRE(res == value_list<1,4,9>);
+    STATIC_REQUIRE(res == 55);
 }
 
 TEST_CASE("fold_left") {
