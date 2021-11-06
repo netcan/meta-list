@@ -26,6 +26,6 @@ struct FilterFn {
     }
 };
 
-inline constexpr auto filter = PipeAdapter < FilterFn > {};
+inline constexpr auto filter = PipeAdapter<FilterFn>{};
 VALUE_LIST_NS_END
 #endif //VALUE_LIST_FILTER_H

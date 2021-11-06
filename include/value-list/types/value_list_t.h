@@ -8,37 +8,31 @@
 #include <value-list/value_list_ns.h>
 VALUE_LIST_NS_BEGIN
 
-template<auto... vs> requires ((vs.is_value_const || vs.is_type_const) && ...)
+template<auto... vs>
+requires ((vs.is_value_const || vs.is_type_const) && ...)
 struct ValueList {
     constexpr static bool is_value_list = true;
-
     consteval size_t size() const { return sizeof...(vs); }
-
     constexpr auto head() const requires requires { size() > 0; } {
         return std::get<0>(std::tie(vs...));
     }
-
     constexpr auto tail() const requires requires { size() > 0; } {
         return [](auto v, auto... rests) {
             return ValueList<rests...>{};
         }(vs...);
     }
-
 ///////////////////////////////////////////////////////////////////////////////
     template<auto... v>
     consteval auto append() const {
         return ValueList<vs..., dispatch_value<v>...>{};
     }
-
     template<typename... T>
     consteval auto append() const { return append<t<T>...>(); }
-
 ///////////////////////////////////////////////////////////////////////////////
     template<auto... v>
     consteval auto prepend() const {
         return ValueList<dispatch_value<v>..., vs...>{};
     }
-
     template<typename... T>
     consteval auto prepend() const { return prepend<t<T>...>(); }
 };

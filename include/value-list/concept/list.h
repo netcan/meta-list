@@ -4,9 +4,7 @@
 
 #ifndef VALUE_LIST_LIST_H
 #define VALUE_LIST_LIST_H
-
 #include <value-list/value_list_ns.h>
-
 VALUE_LIST_NS_BEGIN
 namespace concepts {
 template<typename List>
@@ -18,7 +16,6 @@ concept list = requires(List l) {
     { l.template prepend<0>() };
     { l.template prepend<int>() };
 };
-
 }
 VALUE_LIST_NS_END
 #endif //VALUE_LIST_LIST_H
