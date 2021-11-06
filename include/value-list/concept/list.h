@@ -10,7 +10,7 @@ namespace concepts {
 template<typename List>
 concept list = requires(List l) {
     { l.size() } -> std::same_as<size_t>;
-    { l.is_value_list };
+    requires l.is_value_list;
     { l.template append<0>() };
     { l.template append<int>() };
     { l.template prepend<0>() };

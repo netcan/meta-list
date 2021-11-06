@@ -67,7 +67,7 @@ TEST_CASE("adapter") {
         STATIC_REQUIRE(res == value_list<2, 4>);
     }
 }
-
+//
 TEST_CASE("transform") {
     SECTION("value level") {
         constexpr auto vl = value_list<1, 2, 3, 4>;
