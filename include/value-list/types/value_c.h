@@ -9,9 +9,13 @@ VALUE_LIST_NS_BEGIN
 
 template<auto v>
 struct ValueConst {
+    consteval ValueConst() = default;
+
     constexpr static auto value = v;
     constexpr static bool is_value_const = true;
-    consteval operator decltype(v)() {
+    constexpr static bool is_type_const = false;
+
+    consteval operator decltype(v)() const {
         return v;
     }
 };

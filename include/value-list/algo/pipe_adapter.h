@@ -17,16 +17,21 @@ struct PipeAdapter: private Fn {
     requires(std::invocable<Fn, ValueList<>, Args...>)
     consteval auto operator()(Args... args) const {
         return [=, this]<auto... values>(ValueList<values...> vl) consteval {
-            return static_cast<const Fn&>(*this)(vl, args...);
+            return static_cast<const Fn &>(*this)(vl, args...);
         };
     }
 
     template<auto... values, typename... Args>
     requires(std::invocable<Fn, ValueList<>, Args...>)
     consteval auto operator()(ValueList<values...> vl, Args... args) const {
-        return static_cast<const Fn&>(*this)(vl, args...);
+        return static_cast<const Fn &>(*this)(vl, args...);
     }
 };
+
+template<auto... values, typename Adapter>
+consteval auto operator|(ValueList<values...> vl, Adapter adapter) {
+    return adapter(vl);
+}
 
 VALUE_LIST_NS_END
 #endif //VALUE_LIST_PIPE_ADAPTER_H
