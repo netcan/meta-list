@@ -9,16 +9,16 @@
 #include <value-list/algo/prepend.hpp>
 VALUE_LIST_NS_BEGIN
 struct FilterFn {
-    template<concepts::list VL, typename F>
-    consteval concepts::list auto operator()(VL vl, F f) const {
-        if constexpr (vl.size() == 0) { return value_list<>; }
+    template<concepts::list VL, typename P>
+    consteval concepts::list auto operator()(VL vl, P p) const {
+        if constexpr (vl.empty()) { return value_list<>; }
         else {
             constexpr auto x = vl.head();
             constexpr auto xs = vl.tail();
-            if constexpr (f(x)) {
-                return prepend((*this)(xs, f), x);
+            if constexpr (p(x)) {
+                return (*this)(xs, p) | prepend(x);
             } else {
-                return (*this)(xs, f);
+                return (*this)(xs, p);
             }
         }
     }

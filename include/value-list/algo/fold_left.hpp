@@ -10,7 +10,7 @@ VALUE_LIST_NS_BEGIN
 struct FoldLeftFn {
     template<concepts::list VL, typename Acc, typename Op>
     consteval auto operator()(VL vl, Acc acc, Op op) const {
-        if constexpr (vl.size() == 0) { return acc; }
+        if constexpr (vl.empty()) { return acc; }
         else { return (*this)(vl.tail(), op(acc, vl.head()), op); }
     }
 };

@@ -12,10 +12,11 @@ template<concepts::val_or_typ auto... vs>
 struct ValueList {
     constexpr static bool is_value_list = true;
     consteval size_t size() const { return sizeof...(vs); }
-    consteval auto head() const requires requires { this->size() > 0; } {
+    consteval bool empty() const { return size() == 0; }
+    consteval auto head() const requires requires { this->empty(); } {
         return std::get<0>(std::tie(vs...));
     }
-    consteval auto tail() const requires requires { this->size() > 0; } {
+    consteval auto tail() const requires requires { this->empty(); } {
         return []<typename T, typename... Rest>(T, Rest...) {
             return ValueList<Rest{}...>{};
         }(vs...);

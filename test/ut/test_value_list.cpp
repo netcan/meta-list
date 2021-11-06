@@ -9,6 +9,7 @@
 #include <value-list/algo/append.hpp>
 #include <value-list/algo/prepend.hpp>
 #include <value-list/algo/concat.hpp>
+#include <value-list/algo/partition.hpp>
 #include <value-list/types/type_c.hpp>
 
 using namespace VALUE_LIST_NS;
@@ -140,6 +141,16 @@ TEST_CASE("concat") {
     constexpr auto vl = value_list<t<long>, t<char>, t<int>, t<double>, t<float>>;
     STATIC_REQUIRE(vl == concat(value_list<t<long>, t<char>>, value_list<t<int>, t<double>, t<float>>));
     STATIC_REQUIRE(vl == concat(value_list<t<long>, t<char>>, value_list<t<int>>, value_list<t<double>, t<float>>));
+}
+
+TEST_CASE("partition") {
+    constexpr auto result =
+            value_list<t<int>, t<long long>, t<char>, t<float>, t<short>, t<double>, t<bool>, t<long double>>
+            | partition([]<typename T>(TypeConst<T>) {
+                return sizeof(T) < 8;
+            });
+    STATIC_REQUIRE(result.satisified == value_list<t<int>, t<char>, t<float>, t<short>, t<bool>>);
+    STATIC_REQUIRE(result.rest == value_list<t<long long>, t<double>, t<long double>>);
 }
 
 TEST_CASE("test") {
