@@ -15,7 +15,7 @@ struct TypeConst {
 };
 
 template<typename T>
-inline constexpr TypeConst<T> t;
+inline constexpr TypeConst<T> _t;
 
 template<typename L, typename R>
 consteval bool operator==(TypeConst<L>, TypeConst<R>) {
