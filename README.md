@@ -4,7 +4,7 @@ and provides the pipeline syntactic sugar,
 its experience is better than traditional template metaprogramming.
 
 ## value calculation
-```
+```cpp
 constexpr auto res = value_list<1,2,3,4,5,6,7,8,9,10>
         | transform([](auto x) { return x * x; })
         | filter([](auto x) { return x < 30; })
@@ -15,8 +15,12 @@ static_assert(res == 55);
 
 ## type calculation
 ```cpp
-constexpr auto vl = unique(value_list<_t<int>, _t<int>, _t<float>, _t<short>>);
-STATIC_REQUIRE(vl == value_list<_t<int>, _t<float>, _t<short>>);
+constexpr auto result = value_list<_t<int>, _t<char>, _t<long>, _t<char>, _t<short>, _t<float>, _t<double>>
+                      | filter([]<typename T>(TypeConst<T>) { return sizeof(T) < 4; })
+                      | transform([]<typename T>(TypeConst<T>) { return _t<std::add_pointer_t<T>>; })
+                      | unique()
+                      ;
+static_assert(result == value_list<_t<char*>, _t<short*>>);
 ```
 
 ## Tested Compiler

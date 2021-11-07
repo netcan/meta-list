@@ -124,12 +124,23 @@ TEST_CASE("filter") {
 }
 
 TEST_CASE("map filter fold") {
-    constexpr auto res = value_list<1,2,3,4,5,6,7,8,9,10>
-            | transform([](auto x) { return x * x; })
-            | filter([](auto x) { return x < 30; })
-            | fold_left(0, [](auto acc, auto n) { return acc + n; })
-            ;
-    STATIC_REQUIRE(res == 55);
+    SECTION("value level") {
+        constexpr auto res = value_list<1,2,3,4,5,6,7,8,9,10>
+                           | transform([](auto x) { return x * x; })
+                           | filter([](auto x) { return x < 30; })
+                           | fold_left(0, [](auto acc, auto n) { return acc + n; })
+                           ;
+        STATIC_REQUIRE(res == 55);
+    }
+
+
+    SECTION("type level: add_pointer_t") {
+        constexpr auto result = value_list<_t<int>, _t<char>, _t<long>, _t<char>, _t<short>, _t<float>, _t<double>>
+                            | filter([]<typename T>(TypeConst<T>) { return sizeof(T) < 4; })
+                            | transform([]<typename T>(TypeConst<T>) { return _t<std::add_pointer_t<T>>; })
+                            | unique();
+        STATIC_REQUIRE(result == value_list<_t<char*>, _t<short*>>);
+    }
 }
 
 TEST_CASE("fold_left") {
