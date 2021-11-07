@@ -19,7 +19,7 @@ set(META_VALUE_LIST_INC
         include/value-list/algo/concat.hpp
         include/value-list/algo/partition.hpp
         include/value-list/algo/contain.hpp
-        include/value-list/algo/unique.hpp include/value-list/types/pair_c.hpp include/value-list/algo/enumerate.hpp include/value-list/algo/flatten.hpp)
+        include/value-list/algo/unique.hpp include/value-list/types/pair_c.hpp include/value-list/algo/enumerate.hpp include/value-list/algo/flatten.hpp include/value-list/type.hpp)
 
 include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/include
@@ -30,9 +30,9 @@ add_executable(value_list_ut
         third_party/catch_amalgamated.cpp
         test/ut/test_value_list.cpp)
 
-#add_executable(datatable
-#        ${META_VALUE_LIST_INC}
-#        examples/datatable.cpp)
+add_executable(datatable
+        ${META_VALUE_LIST_INC}
+        examples/datatable.cpp)
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
 target_link_libraries(value_list_ut stdc++ m)

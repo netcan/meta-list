@@ -3,8 +3,7 @@
 //
 
 #include <catch_amalgamated.hpp>
-#include <value-list/types/type_c.hpp>
-#include <value-list/types/pair_c.hpp>
+#include <value-list/type.hpp>
 #include <value-list/algorithm.hpp>
 
 using namespace VALUE_LIST_NS;
