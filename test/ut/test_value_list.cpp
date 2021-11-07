@@ -189,5 +189,14 @@ TEST_CASE("enumerate") {
     STATIC_REQUIRE(vl == value_list<pair<0, _t<int>>, pair<1, _t<float>>, pair<2, _t<short>>>);
 }
 
+TEST_CASE("flatten") {
+    constexpr auto vl = value_list<
+            value_list<1,value_list<2>,3>,
+            value_list<4,5,6>,
+            value_list<7,8,9>>
+            | flatten();
+    STATIC_REQUIRE(vl == value_list<1,2,3,4,5,6,7,8,9>);
+}
+
 TEST_CASE("test") {
 }

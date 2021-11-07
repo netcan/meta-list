@@ -14,5 +14,6 @@
 #include <value-list/algo/contain.hpp>
 #include <value-list/algo/unique.hpp>
 #include <value-list/algo/enumerate.hpp>
+#include <value-list/algo/flatten.hpp>
 
 #endif //VALUE_LIST_ALGORITHM_HPP
