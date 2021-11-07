@@ -15,6 +15,7 @@ template<typename Fn>
 struct PipeAdapter: private Fn {
     consteval PipeAdapter() = default;
     consteval PipeAdapter(Fn) {}
+
     template<typename... Args>
     requires(std::invocable<Fn, ValueList<>, Args...>)
     consteval auto operator()(Args... args) const {

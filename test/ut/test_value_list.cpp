@@ -11,6 +11,7 @@
 #include <value-list/algo/concat.hpp>
 #include <value-list/algo/partition.hpp>
 #include <value-list/algo/contain.hpp>
+#include <value-list/algo/unique.hpp>
 #include <value-list/types/type_c.hpp>
 
 using namespace VALUE_LIST_NS;
@@ -165,6 +166,17 @@ TEST_CASE("contain") {
         constexpr auto vl = value_list<1,2,3,4>;
         STATIC_REQUIRE(contain(vl, 2));
         STATIC_REQUIRE(!contain(vl, 0));
+    }
+}
+
+TEST_CASE("unique") {
+    SECTION("type level") {
+        constexpr auto vl = unique(value_list<_t<int>, _t<int>, _t<float>, _t<short>>);
+        STATIC_REQUIRE(vl == value_list<_t<int>, _t<float>, _t<short>>);
+    }
+    SECTION("value level") {
+        constexpr auto vl = value_list<1,1,1,1,1,2,1> | unique();
+        STATIC_REQUIRE(vl == value_list<2, 1>);
     }
 }
 
