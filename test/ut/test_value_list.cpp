@@ -10,6 +10,7 @@
 #include <value-list/algo/prepend.hpp>
 #include <value-list/algo/concat.hpp>
 #include <value-list/algo/partition.hpp>
+#include <value-list/algo/contain.hpp>
 #include <value-list/types/type_c.hpp>
 
 using namespace VALUE_LIST_NS;
@@ -123,7 +124,7 @@ TEST_CASE("map filter fold") {
     constexpr auto res = vl
             | transform([](auto x) { return x * x; })
             | filter([](auto x) { return x < 30; })
-            | fold_left(v<0>, [](auto acc, auto n) { return acc + n; })
+            | fold_left(0, [](auto acc, auto n) { return acc + n; })
             ;
     STATIC_REQUIRE(res == 55);
 }
@@ -152,6 +153,19 @@ TEST_CASE("partition") {
             });
     STATIC_REQUIRE(result.satisified == value_list<t<int>, t<char>, t<float>, t<short>, t<bool>>);
     STATIC_REQUIRE(result.rest == value_list<t<long long>, t<double>, t<long double>>);
+}
+
+TEST_CASE("contain") {
+    SECTION("type level") {
+        constexpr auto vl = value_list<t<int>, t<char>, t<float>, t<short>>;
+        STATIC_REQUIRE(contain(vl, t<int>));
+        STATIC_REQUIRE(!contain(vl, t<long long>));
+    }
+    SECTION("value level") {
+        constexpr auto vl = value_list<1,2,3,4>;
+        STATIC_REQUIRE(contain(vl, 2));
+        STATIC_REQUIRE(!contain(vl, 0));
+    }
 }
 
 TEST_CASE("test") {
