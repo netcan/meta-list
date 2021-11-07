@@ -124,8 +124,7 @@ TEST_CASE("filter") {
 }
 
 TEST_CASE("map filter fold") {
-    constexpr auto vl = value_list<1,2,3,4,5,6,7,8,9,10>;
-    constexpr auto res = vl
+    constexpr auto res = value_list<1,2,3,4,5,6,7,8,9,10>
             | transform([](auto x) { return x * x; })
             | filter([](auto x) { return x < 30; })
             | fold_left(0, [](auto acc, auto n) { return acc + n; })
