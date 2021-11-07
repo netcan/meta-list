@@ -10,9 +10,10 @@
 VALUE_LIST_NS_BEGIN
 
 inline constexpr auto prepend = PipeAdapter(
-        []<auto ...values, concepts::val_or_typ... Es>(ValueList<values...> vl, Es...)
+        []<auto ...values, concepts::val_or_typ E
+        , concepts::val_or_typ... Es>(ValueList<values...> vl, E, Es...)
         -> concepts::list auto {
-            return ValueList<Es{}..., values...>{};
+            return ValueList<E{}, Es{}..., values...>{};
         });
 
 VALUE_LIST_NS_END

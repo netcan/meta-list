@@ -6,6 +6,8 @@
 #define VALUE_LIST_VALUE_LIST_H
 #include <value-list/types/dispatch_value.hpp>
 #include <value-list/value_list_ns.hpp>
+#include <cstddef>
+#include <tuple>
 VALUE_LIST_NS_BEGIN
 
 template<concepts::val_or_typ auto... vs>

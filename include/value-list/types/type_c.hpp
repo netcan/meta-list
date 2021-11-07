@@ -6,6 +6,7 @@
 #define VALUE_LIST_TYPE_C_HPP
 #include <type_traits>
 #include <value-list/value_list_ns.hpp>
+#include <value-list/concept/value_or_type.hpp>
 
 VALUE_LIST_NS_BEGIN
 template<typename T>
@@ -16,6 +17,9 @@ struct TypeConst {
 
 template<typename T>
 inline constexpr TypeConst<T> _t;
+
+template<concepts::type_const auto type_c>
+using get_typ = typename decltype(type_c)::type;
 
 template<typename L, typename R>
 consteval bool operator==(TypeConst<L>, TypeConst<R>) {

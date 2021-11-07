@@ -3,16 +3,8 @@
 //
 
 #include <catch_amalgamated.hpp>
-#include <value-list/algo/transform.hpp>
-#include <value-list/algo/filter.hpp>
-#include <value-list/algo/fold_left.hpp>
-#include <value-list/algo/append.hpp>
-#include <value-list/algo/prepend.hpp>
-#include <value-list/algo/concat.hpp>
-#include <value-list/algo/partition.hpp>
-#include <value-list/algo/contain.hpp>
-#include <value-list/algo/unique.hpp>
 #include <value-list/types/type_c.hpp>
+#include <value-list/algorithm.hpp>
 
 using namespace VALUE_LIST_NS;
 
@@ -55,6 +47,11 @@ TEST_CASE("value_list") {
                 | prepend(_v<2>)
                 ;
         STATIC_REQUIRE(res == value_list<2, 1>);
+    }
+
+    SECTION("prepend value list") {
+        constexpr auto res = vl | prepend(value_list<1,2,3>);
+        STATIC_REQUIRE(res == value_list<value_list<1,2,3>>);
     }
 
     SECTION("head & tail") {

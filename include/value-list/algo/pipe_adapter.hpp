@@ -24,11 +24,7 @@ struct PipeAdapter: private Fn {
         };
     }
 
-    template<concepts::list VL, typename... Args>
-    requires(std::invocable<Fn, ValueList<>, Args...>)
-    consteval auto operator()(VL vl, Args... args) const {
-        return static_cast<const Fn &>(*this)(vl, args...);
-    }
+    using Fn::operator();
 };
 
 template<concepts::list VL, typename Adapter>
