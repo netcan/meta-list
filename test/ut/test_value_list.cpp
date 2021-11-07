@@ -4,11 +4,12 @@
 
 #include <catch_amalgamated.hpp>
 #include <value-list/types/type_c.hpp>
+#include <value-list/types/pair_c.hpp>
 #include <value-list/algorithm.hpp>
 
 using namespace VALUE_LIST_NS;
 
-template<typename...>
+template<auto...>
 struct dump;
 
 TEST_CASE("value_list") {
@@ -58,6 +59,12 @@ TEST_CASE("value_list") {
         constexpr auto v = value_list<1, 2, 3, 4>;
         STATIC_REQUIRE(v.head() == 1);
         STATIC_REQUIRE(v.tail() == value_list<2, 3, 4>);
+    }
+}
+
+TEST_CASE("pair") {
+    SECTION("pair combine with value_list") {
+        STATIC_REQUIRE(value_list<pair<1, 2>> == value_list<pair<1, 2>>);
     }
 }
 
@@ -149,8 +156,8 @@ TEST_CASE("partition") {
             | partition([]<typename T>(TypeConst<T>) {
                 return sizeof(T) < 8;
             });
-    STATIC_REQUIRE(result.satisified == value_list<_t<int>, _t<char>, _t<float>, _t<short>, _t<bool>>);
-    STATIC_REQUIRE(result.rest == value_list<_t<long long>, _t<double>, _t<long double>>);
+    STATIC_REQUIRE(result.first == value_list<_t<int>, _t<char>, _t<float>, _t<short>, _t<bool>>);
+    STATIC_REQUIRE(result.second == value_list<_t<long long>, _t<double>, _t<long double>>);
 }
 
 TEST_CASE("contain") {

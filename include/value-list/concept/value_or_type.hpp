@@ -21,7 +21,13 @@ concept type_const = requires {
 };
 
 template<typename T>
-concept val_or_typ = value_const<T> || type_const<T> || list<T>;
+concept pair_const = requires {
+    T::is_pair_const;
+    requires T::is_pair_const;
+};
+
+template<typename T>
+concept val_or_typ = (value_const<T> || type_const<T> || list<T> || pair_const<T>);
 }
 VALUE_LIST_NS_END
 #endif //VALUE_LIST_VALUE_OR_TYPE_HPP

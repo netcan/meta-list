@@ -20,11 +20,8 @@ private:
             constexpr auto x = vl.head();
             constexpr auto xs = vl.tail();
             constexpr auto res = invoke(xs);
-            if constexpr (contain(res, x)) {
-                return res;
-            } else {
-                return res | prepend(x);
-            }
+            if constexpr (contain(res, x)) { return res; }
+            else { return res | prepend(x); }
         }
     }
 };

@@ -4,7 +4,6 @@
 
 #ifndef VALUE_LIST_DISPATCH_VALUE_HPP
 #define VALUE_LIST_DISPATCH_VALUE_HPP
-#include <value-list/types/type_c.hpp>
 #include <value-list/types/value_c.hpp>
 #include <value-list/concept/value_or_type.hpp>
 #include <value-list/concept/list.hpp>
@@ -17,10 +16,8 @@ inline constexpr auto dispatch_value = _v<value>;
 template<concepts::value_const auto value>
 inline constexpr auto dispatch_value<value> = dispatch_value<value.value>;
 
-template<concepts::list auto value>
-inline constexpr auto dispatch_value<value> = value;
-
-template<concepts::type_const auto value>
+template<concepts::val_or_typ auto value>
+requires (! concepts::value_const<decltype(value)>) // gcc needs it; msvc not need
 inline constexpr auto dispatch_value<value> = value;
 
 VALUE_LIST_NS_END
