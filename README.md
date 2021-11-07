@@ -19,6 +19,11 @@ constexpr auto vl = unique(value_list<_t<int>, _t<int>, _t<float>, _t<short>>);
 STATIC_REQUIRE(vl == value_list<_t<int>, _t<float>, _t<short>>);
 ```
 
+## Tested Compiler
+- gcc-11.2 **Worked**
+- msvc-19.30.30705 VS17.0 **Worked**
+- clang-14 **Crashed**
+
 ## More motivated examples
 [examples](examples/README.md)
 
