@@ -14,7 +14,7 @@ all GenericRegion types will combine with the Regions class.
 
 The `Indexer` class records the key info that belongs to which GenericRegion's offset, 
 the lower 16 bits is GenericRegion's offset, and upper bits is GenericRegion's id, 
-`0x10000` indicates that the key `2` belongs to the first element of the second GenericRegion.
+`0x10001` indicates that the key `2` belongs to the second element of the second GenericRegion.
 `Indexer::mask` record key has been set.
 
 ```cpp
@@ -98,7 +98,7 @@ get_typ<indexer_type> indexer;
 
 Use TMP:
 
-```
+```cpp
 template<TL Es = TypeList<>, TL Gs = TypeList<>>
 struct GroupEntriesTrait: Gs { };
 
