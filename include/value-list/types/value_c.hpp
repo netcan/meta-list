@@ -20,7 +20,7 @@ struct ValueConst {
 };
 
 template<auto value>
-inline constexpr ValueConst<value> v;
+inline constexpr ValueConst<value> _v;
 
 template<auto l, auto r>
 consteval bool operator==(ValueConst<l>, ValueConst<r>) {

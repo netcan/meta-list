@@ -11,7 +11,7 @@
 VALUE_LIST_NS_BEGIN
 
 template<auto value>
-inline constexpr auto dispatch_value = v<value>;
+inline constexpr auto dispatch_value = _v<value>;
 
 template<concepts::value_const auto value>
 inline constexpr auto dispatch_value<value> = dispatch_value<value.value>;

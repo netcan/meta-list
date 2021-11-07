@@ -28,12 +28,12 @@ TEST_CASE("value_list") {
 
     SECTION("from template variable") {
         constexpr auto vl = value_list<1, 2, 3, 4>;
-        constexpr auto vl2 = value_list<v<1>, v<2>, v<3>, v<4>>;
+        constexpr auto vl2 = value_list<_v<1>, _v<2>, _v<3>, _v<4>>;
         STATIC_REQUIRE(vl == vl2);
     }
 
     SECTION("append value") {
-        constexpr auto res = append(vl, v<1>, v<2>);
+        constexpr auto res = append(vl, _v<1>, _v<2>);
         STATIC_REQUIRE(res == value_list<1, 2>);
     }
 
@@ -50,8 +50,8 @@ TEST_CASE("value_list") {
 
     SECTION("prepend value") {
         constexpr auto res = vl
-                | prepend(v<1>)
-                | prepend(v<2>)
+                | prepend(_v<1>)
+                | prepend(_v<2>)
                 ;
         STATIC_REQUIRE(res == value_list<2, 1>);
     }
