@@ -13,5 +13,6 @@
 #include <value-list/algo/partition.hpp>
 #include <value-list/algo/contain.hpp>
 #include <value-list/algo/unique.hpp>
+#include <value-list/algo/enumerate.hpp>
 
 #endif //VALUE_LIST_ALGORITHM_HPP

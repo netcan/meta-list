@@ -184,5 +184,10 @@ TEST_CASE("unique") {
     }
 }
 
+TEST_CASE("enumerate") {
+    constexpr auto vl = value_list<_t<int>, _t<float>, _t<short>> | enumerate();
+    STATIC_REQUIRE(vl == value_list<pair<0, _t<int>>, pair<1, _t<float>>, pair<2, _t<short>>>);
+}
+
 TEST_CASE("test") {
 }
