@@ -27,7 +27,7 @@ struct PipeAdapter: private Fn {
     using Fn::operator();
 };
 
-template<concepts::list VL, typename Adapter>
+template<concepts::list VL, typename Adapter> // TODO: constraint Adapter
 consteval auto operator|(VL vl, Adapter adapter) {
     return adapter(vl);
 }

@@ -73,9 +73,8 @@ constexpr static auto entry_groups = group_entries(entries);
 constexpr static auto regions_type = entry_groups
                                 | transform([]<concepts::value_const auto... es>(ValueList<es...>)
                                                                                 { return _t<GenericRegion<es.value...>>; })
-                                | fold_left(_t<Regions<>>, []</* concepts::type_const */ typename GR, typename... GRs>
-                                                             (TypeConst<Regions<GRs...>>, GR)
-                                                             { return _t<Regions<GRs...,typename GR::type>>; });
+                                | convert_to<Regions>()
+                                ;
 
 constexpr static auto indexer_type = (entry_groups
         | fold_left(pair<0, value_list<>>, [](/* concepts::pair_const */ auto group_list, /* concepts::list */ auto group_entries) {
@@ -87,16 +86,14 @@ constexpr static auto indexer_type = (entry_groups
                     });
             return pair<group_list.first + 1, concat(group_list.second, res.second)>;
         })).second
-        | fold_left(_t<Indexer<>>, []</* concepts::pair_const */ typename KeyWithId, concepts::pair_const auto... key_with_ids>
-                                    (TypeConst<Indexer<key_with_ids...>>, KeyWithId) {
-            return _t<Indexer<key_with_ids..., KeyWithId{}>>;
-        });
+        | convert_to<Indexer>()
+        ;
 
 get_typ<regions_type> regions;
 get_typ<indexer_type> indexer;
 ```
 
-Use TMP:
+Use Traditional TMP:
 
 ```cpp
 template<TL Es = TypeList<>, TL Gs = TypeList<>>

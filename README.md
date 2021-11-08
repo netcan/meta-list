@@ -3,6 +3,7 @@ This library provides a bunch of consteval toolsets to do metaprogramming,
 and provides the pipeline syntactic sugar for function combination, 
 its experience is better than traditional template metaprogramming.
 
+All PRs are welcome.
 ## value calculation
 ```cpp
 constexpr auto res = value_list<1,2,3,4,5,6,7,8,9,10>

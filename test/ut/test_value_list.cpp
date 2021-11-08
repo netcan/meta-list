@@ -5,6 +5,7 @@
 #include <catch_amalgamated.hpp>
 #include <value-list/type.hpp>
 #include <value-list/algorithm.hpp>
+#include <vector>
 
 using namespace VALUE_LIST_NS;
 
@@ -206,6 +207,29 @@ TEST_CASE("flatten") {
             value_list<7,8,9>>
             | flatten();
     STATIC_REQUIRE(vl == value_list<1,2,3,4,5,6,7,8,9>);
+}
+
+TEST_CASE("convert_to") {
+    SECTION("value level") {
+        constexpr auto res = value_list<1,3,5,7,9>
+                           | convert_to<std::index_sequence>()
+                           ;
+        STATIC_REQUIRE(res == _t<std::index_sequence<1,3,5,7,9>>);
+    }
+
+    SECTION("type level: tuple") {
+        constexpr auto res = type_list<int, char, double>
+                           | convert_to<std::tuple>()
+                           ;
+        STATIC_REQUIRE(res == _t<std::tuple<int, char, double>>);
+    }
+
+    SECTION("type level: vector") {
+        constexpr auto res = type_list<int, std::allocator<int>>
+                           | convert_to<std::vector>();
+        STATIC_REQUIRE(res == _t<std::vector<int, std::allocator<int>>>);
+    }
+
 }
 
 TEST_CASE("test") {
