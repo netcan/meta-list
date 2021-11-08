@@ -6,6 +6,7 @@
 #include <value-list/type.hpp>
 #include <value-list/algorithm.hpp>
 #include <vector>
+#include <variant>
 
 using namespace VALUE_LIST_NS;
 
@@ -140,8 +141,9 @@ TEST_CASE("map filter fold") {
                             | filter([]<typename T>(TypeConst<T>) { return sizeof(T) < 4; })
                             | transform([]<typename T>(TypeConst<T>) { return _t<std::add_pointer_t<T>>; })
                             | unique()
+                            | convert_to<std::variant>()
                             ;
-        STATIC_REQUIRE(result == type_list<char*, short*>);
+        STATIC_REQUIRE(result == _t<std::variant<char*, short*>>);
     }
 }
 

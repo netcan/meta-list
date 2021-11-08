@@ -48,8 +48,6 @@ static_assert(KVEntry<Entry<0, char[10]>>);
 template<auto Key, typename ValueType>
 inline constexpr auto entry = Entry<Key, ValueType>{};
 
-template<auto...> struct dump;
-
 ///////////////////////////////////////////////////////////////////////////////
 template <concepts::list auto entries>
 class Datatable {

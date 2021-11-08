@@ -5,6 +5,7 @@
 #ifndef VALUE_LIST_PARTITION_HPP
 #define VALUE_LIST_PARTITION_HPP
 #include <value-list/concept/list.hpp>
+#include <value-list/concept/value_or_type.hpp>
 #include <value-list/types/pair_c.hpp>
 #include <value-list/algo/pipe_adapter.hpp>
 #include <value-list/algo/append.hpp>
@@ -12,7 +13,7 @@ VALUE_LIST_NS_BEGIN
 
 struct PartitionFn {
     template<concepts::list VL, typename P>
-    consteval auto operator()(VL vl, P p) const {
+    consteval auto operator()(VL vl, P p) const -> concepts::pair_const auto {
         return invoke(vl, p, value_list<>, value_list<>);
     }
 private:

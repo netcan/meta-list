@@ -20,8 +20,9 @@ constexpr auto result = type_list<int, char, long, char, short, float, double>
                       | filter([]<typename T>(TypeConst<T>) { return sizeof(T) < 4; })
                       | transform([]<typename T>(TypeConst<T>) { return _t<std::add_pointer_t<T>>; })
                       | unique()
+                      | convert_to<std::variant>()
                       ;
-static_assert(result == type_list<char*, short*>);
+static_assert(result == _t<std::variant<char*, short*>>);
 ```
 
 ## Tested Compiler
@@ -34,3 +35,5 @@ static_assert(result == type_list<char*, short*>);
 
 ## Inspiration
 - [Boost.hana](https://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/index.html)
+- [range-v3](https://github.com/ericniebler/range-v3)
+- [holo](https://github.com/godsme/holo)
