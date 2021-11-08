@@ -26,7 +26,10 @@ struct ValueList {
 };
 
 template<auto... values>
-inline constexpr ValueList<dispatch_value<values>...> value_list{};
+inline constexpr auto value_list = ValueList<dispatch_value<values>...>{};
+
+template<typename... Ts>
+inline constexpr auto type_list = value_list<_t<Ts>...>;
 
 template<auto... lhs, auto... rhs>
 consteval bool operator==(ValueList<lhs...>, ValueList<rhs...>) {

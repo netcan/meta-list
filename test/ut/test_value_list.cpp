@@ -33,11 +33,11 @@ TEST_CASE("value_list") {
     SECTION("append type") {
         {
             constexpr auto res = vl | append(_t<int>, _t<double>);
-            STATIC_REQUIRE(res == value_list<_t<int>, _t<double>>);
+            STATIC_REQUIRE(res == type_list<int, double>);
         }
         {
             constexpr auto res = append(vl, _t<int>, _t<double>);
-            STATIC_REQUIRE(res == value_list<_t<int>, _t<double>>);
+            STATIC_REQUIRE(res == type_list<int, double>);
         }
     }
 
@@ -89,11 +89,11 @@ TEST_CASE("transform") {
     }
 
     SECTION("type level: add_pointer_t") {
-        constexpr auto vl = value_list<_t<int>, _t<char>, _t<double>>;
+        constexpr auto vl = type_list<int, char, double>;
         constexpr auto result = transform(vl, []<typename T>(TypeConst<T>) {
             return _t<std::add_pointer_t<T>>;
         });
-        STATIC_REQUIRE(result == value_list<_t<int*>, _t<char*>, _t<double*>>);
+        STATIC_REQUIRE(result == type_list<int*, char*, double*>);
     }
 
     SECTION("type level: if constexpr") {
@@ -105,7 +105,7 @@ TEST_CASE("transform") {
                 return _t<short>;
             }
         });
-        STATIC_REQUIRE(result == value_list<_t<char>, _t<short>>);
+        STATIC_REQUIRE(result == type_list<char, short>);
     }
 }
 
@@ -117,9 +117,9 @@ TEST_CASE("filter") {
     }
 
     SECTION("type level") {
-        constexpr auto vl = value_list<_t<int>, _t<double>, _t<char>, _t<float>, _t<char>, _t<short>>;
+        constexpr auto vl = type_list<int, double, char, float, char, short>;
         constexpr auto res = vl | filter([]<typename T>(TypeConst<T>) { return sizeof(T) < 4; });
-        STATIC_REQUIRE(res == value_list<_t<char>, _t<char>, _t<short>>);
+        STATIC_REQUIRE(res == type_list<char, char, short>);
     }
 }
 
@@ -135,43 +135,44 @@ TEST_CASE("map filter fold") {
 
 
     SECTION("type level: add_pointer_t") {
-        constexpr auto result = value_list<_t<int>, _t<char>, _t<long>, _t<char>, _t<short>, _t<float>, _t<double>>
+        constexpr auto result = type_list<int, char, long, char, short, float, double>
                             | filter([]<typename T>(TypeConst<T>) { return sizeof(T) < 4; })
                             | transform([]<typename T>(TypeConst<T>) { return _t<std::add_pointer_t<T>>; })
-                            | unique();
-        STATIC_REQUIRE(result == value_list<_t<char*>, _t<short*>>);
+                            | unique()
+                            ;
+        STATIC_REQUIRE(result == type_list<char*, short*>);
     }
 }
 
 TEST_CASE("fold_left") {
     SECTION("type level") {
-        constexpr auto result = value_list<_t<int>, _t<float>, _t<double>>
-                              | fold_left(value_list<>, [](concepts::list auto acc, auto elem)
-                                                          { return acc | append(elem); })
+        constexpr auto result = type_list<int, float, double>
+                              | fold_left(type_list<>, [](concepts::list auto acc, auto elem)
+                                                         { return acc | append(elem); })
                               ;
-        STATIC_REQUIRE(result == value_list<_t<int>, _t<float>, _t<double>>);
+        STATIC_REQUIRE(result == type_list<int, float, double>);
     }
 }
 
 TEST_CASE("concat") {
-    constexpr auto vl = value_list<_t<long>, _t<char>, _t<int>, _t<double>, _t<float>>;
-    STATIC_REQUIRE(vl == concat(value_list<_t<long>, _t<char>>, value_list<_t<int>, _t<double>, _t<float>>));
-    STATIC_REQUIRE(vl == concat(value_list<_t<long>, _t<char>>, value_list<_t<int>>, value_list<_t<double>, _t<float>>));
+    constexpr auto vl = type_list<long, char, int, double, float>;
+    STATIC_REQUIRE(vl == concat(type_list<long, char>, type_list<int, double, float>));
+    STATIC_REQUIRE(vl == concat(type_list<long, char>, type_list<int>, type_list<double, float>));
 }
 
 TEST_CASE("partition") {
     constexpr auto result =
-            value_list<_t<int>, _t<long long>, _t<char>, _t<float>, _t<short>, _t<double>, _t<bool>, _t<long double>>
+            type_list<int, long long, char, float, short, double, bool, long double>
             | partition([]<typename T>(TypeConst<T>) {
                 return sizeof(T) < 8;
             });
-    STATIC_REQUIRE(result.first == value_list<_t<int>, _t<char>, _t<float>, _t<short>, _t<bool>>);
-    STATIC_REQUIRE(result.second == value_list<_t<long long>, _t<double>, _t<long double>>);
+    STATIC_REQUIRE(result.first == type_list<int, char, float, short, bool>);
+    STATIC_REQUIRE(result.second == type_list<long long, double, long double>);
 }
 
 TEST_CASE("contain") {
     SECTION("type level") {
-        constexpr auto vl = value_list<_t<int>, _t<char>, _t<float>, _t<short>>;
+        constexpr auto vl = type_list<int, char, float, short>;
         STATIC_REQUIRE(contain(vl, _t<int>));
         STATIC_REQUIRE(!contain(vl, _t<long long>));
     }
@@ -184,8 +185,8 @@ TEST_CASE("contain") {
 
 TEST_CASE("unique") {
     SECTION("type level") {
-        constexpr auto vl = unique(value_list<_t<int>, _t<int>, _t<float>, _t<short>>);
-        STATIC_REQUIRE(vl == value_list<_t<int>, _t<float>, _t<short>>);
+        constexpr auto vl = unique(type_list<int, int, float, short>);
+        STATIC_REQUIRE(vl == type_list<int, float, short>);
     }
     SECTION("value level") {
         constexpr auto vl = value_list<1,1,1,1,1,2,1> | unique();
