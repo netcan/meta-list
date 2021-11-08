@@ -51,7 +51,7 @@ inline constexpr auto entry = Entry<Key, ValueType>{};
 ///////////////////////////////////////////////////////////////////////////////
 template <concepts::list auto entries>
 class Datatable {
-    template<KVEntry auto eh, KVEntry auto ...et>
+    template</* KVEntry */ auto eh, /* KVEntry */ auto ...et>
     class GenericRegion {
         constexpr static size_t numberOfEntries = sizeof...(et) + 1;
         constexpr static size_t maxSize = std::max(alignof(typename decltype(eh)::type),
@@ -126,8 +126,8 @@ class Datatable {
     constexpr static auto entry_groups = group_entries(entries);
 
     constexpr static auto regions_type = entry_groups
-                                    | transform([]<concepts::value_const auto... es>(ValueList<es...>)
-                                                                                    { return _t<GenericRegion<es.value...>>; })
+                                    | transform([](/* concepts::list */ auto group)
+                                                  { return group | convert_to<GenericRegion>(); })
                                     | convert_to<Regions>()
                                     ;
 
