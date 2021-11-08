@@ -1,6 +1,6 @@
 # meta-value-list
 This library provides a bunch of consteval toolsets to do metaprogramming,
-and provides the pipeline syntactic sugar, 
+and provides the pipeline syntactic sugar to function combination, 
 its experience is better than traditional template metaprogramming.
 
 ## value calculation
