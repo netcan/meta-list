@@ -16,5 +16,6 @@
 #include <value-list/algo/enumerate.hpp>
 #include <value-list/algo/flatten.hpp>
 #include <value-list/algo/convert_to.hpp>
+#include <value-list/algo/convert_from.hpp>
 
 #endif //VALUE_LIST_ALGORITHM_HPP

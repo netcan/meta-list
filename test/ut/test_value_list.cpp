@@ -231,7 +231,17 @@ TEST_CASE("convert_to") {
                            | convert_to<std::vector>();
         STATIC_REQUIRE(res == _t<std::vector<int, std::allocator<int>>>);
     }
+}
 
+TEST_CASE("convert_from") {
+    SECTION("value level") {
+        constexpr auto vl = convert_from<std::make_index_sequence<10>>();
+        STATIC_REQUIRE(vl == value_list<0,1,2,3,4,5,6,7,8,9>);
+    }
+    SECTION("type level") {
+        constexpr auto vl = convert_from<std::tuple<int, char, double>>();
+        STATIC_REQUIRE(vl == type_list<int, char, double>);
+    }
 }
 
 TEST_CASE("test") {

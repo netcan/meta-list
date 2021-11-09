@@ -1,5 +1,5 @@
 # Examples
-## Datatable
+## Datatable (type calculation)
 Datatable is a key-value data structure, the key is enumerated type, 
 and the value type can be variant, likes Android's metadata_t data structure.
 

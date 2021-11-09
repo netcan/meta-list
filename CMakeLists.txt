@@ -19,7 +19,7 @@ set(META_VALUE_LIST_INC
         include/value-list/algo/concat.hpp
         include/value-list/algo/partition.hpp
         include/value-list/algo/contain.hpp
-        include/value-list/algo/unique.hpp include/value-list/types/pair_c.hpp include/value-list/algo/enumerate.hpp include/value-list/algo/flatten.hpp include/value-list/type.hpp include/value-list/algo/convert_to.hpp)
+        include/value-list/algo/unique.hpp include/value-list/types/pair_c.hpp include/value-list/algo/enumerate.hpp include/value-list/algo/flatten.hpp include/value-list/type.hpp include/value-list/algo/convert_to.hpp include/value-list/algo/convert_from.hpp)
 
 include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/include
