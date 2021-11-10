@@ -118,8 +118,9 @@ class Datatable {
         if constexpr (es.empty()) {
             return value_list<>;
         } else {
-            constexpr auto e = es.head();
-            constexpr auto group_result = es | partition([](auto entry) { return _v<(typename decltype(entry)::type() == typename decltype(e)::type())>; });
+            constexpr auto e = get_typ<es.head()>{};
+            constexpr auto group_result = es | partition([]<typename Entry>(TypeConst<Entry>)
+                                                        { return _v<Entry{} == e>; });
             return group_entries(group_result.second)
                    | prepend(group_result.first);
         }
@@ -131,17 +132,18 @@ class Datatable {
                                                   { return group | convert_to<GenericRegion>(); })
                                     | convert_to<Regions>()
                                     ;
-//
+
     constexpr static auto indexer_type = (entry_groups
-            | fold_left(pair<ValueConst<0>, TypeList<>>, [](/* concepts::pair_const */ auto group_list, /* concepts::list */ auto group_entries) {
+            | fold_left(make_pair(_v<0>, type_list<>), [](/* concepts::pair_const */ auto group_list, /* concepts::list */ auto group_entries) {
                 constexpr auto res = group_entries
-                       | fold_left(pair<ValueConst<0>, TypeList<>>, [group_list]<typename E>(concepts::pair_const auto inner_group, TypeConst<E>) {
+                       | fold_left(make_pair(_v<0>, type_list<>)
+                                           , [group_list]<typename E>(concepts::pair_const auto inner_group, TypeConst<E>) {
                            constexpr auto group_id = group_list.first;
                            constexpr auto inner_id = inner_group.first;
-                           return pair<ValueConst<inner_id + 1>,
-                                       decltype(inner_group.second | append(pair<ValueConst<E::key>, ValueConst<(group_id << 16 | inner_id)>>))>;
+                           return make_pair(_v<inner_id + 1>,
+                                           inner_group.second | append(make_pair(_v<E::key>, _v<group_id << 16 | inner_id>)));
                         });
-                return pair<ValueConst<group_list.first + 1>, decltype(concat(group_list.second, res.second))>;
+                return make_pair(_v<group_list.first + 1>, concat(group_list.second, res.second));
             })).second
             | convert_to<Indexer>()
             ;

@@ -17,7 +17,7 @@ struct Pair {
 };
 
 template<typename F, typename S>
-inline constexpr auto pair = Pair<F, S>{};
+consteval auto make_pair(F, S) -> Pair<F, S> { return {}; }
 
 template<typename FL, typename SL, typename FR, typename SR>
 consteval bool operator==(Pair<FL, SL>, Pair<FR, SR>) {
