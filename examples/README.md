@@ -62,8 +62,9 @@ consteval static concepts::list auto group_entries(concepts::list auto es) {
     if constexpr (es.empty()) {
         return value_list<>;
     } else {
-        constexpr auto e = es.head();
-        constexpr auto group_result = es | partition([](auto entry) { return entry == e; });
+        constexpr auto e = get_typ<es.head()>{};
+        constexpr auto group_result = es | partition([]<typename Entry>(TypeConst<Entry>)
+                                                    { return _v<Entry{} == e>; });
         return group_entries(group_result.second)
                | prepend(group_result.first);
     }
@@ -71,20 +72,25 @@ consteval static concepts::list auto group_entries(concepts::list auto es) {
 constexpr static auto entry_groups = group_entries(entries);
 
 constexpr static auto regions_type = entry_groups
-                                | transform([]<concepts::value_const auto... es>(ValueList<es...>)
-                                                                                { return _t<GenericRegion<es.value...>>; })
+                                | transform([](/* concepts::list */ auto group)
+                                              { return group | convert_to<GenericRegion>(); })
                                 | convert_to<Regions>()
                                 ;
 
 constexpr static auto indexer_type = (entry_groups
-        | fold_left(pair<0, value_list<>>, [](/* concepts::pair_const */ auto group_list, /* concepts::list */ auto group_entries) {
+        | fold_left(make_pair(_v<0>, type_list<>), [](/* concepts::pair_const */ auto group_list,
+                                                      /* concepts::list */ auto group_entries) {
             constexpr auto res = group_entries
-                   | fold_left(pair<0, value_list<>>, [group_list](concepts::pair_const auto inner_group, concepts::value_const auto entry) {
+                   | fold_left(make_pair(_v<0>, type_list<>)
+                                       , [group_list]<typename E>(concepts::pair_const auto inner_group
+                                                                 , TypeConst<E>) {
                        constexpr auto group_id = group_list.first;
                        constexpr auto inner_id = inner_group.first;
-                       return pair<inner_id + 1, inner_group.second | append(pair<entry.value.key, (group_id << 16 | inner_id)>)>;
+                       return make_pair(_v<inner_id + 1>
+                                       , inner_group.second
+                                       | append(make_pair(_v<E::key>, _v<group_id << 16 | inner_id>)));
                     });
-            return pair<group_list.first + 1, concat(group_list.second, res.second)>;
+            return make_pair(_v<group_list.first + 1>, concat(group_list.second, res.second));
         })).second
         | convert_to<Indexer>()
         ;

@@ -114,7 +114,7 @@ class Datatable {
 
 ///////////////////////////////////////////////////////////////////////////////
 // meta value list consteval meta programming
-    consteval static auto group_entries(concepts::list auto es) {
+    consteval static concepts::list auto group_entries(concepts::list auto es) {
         if constexpr (es.empty()) {
             return value_list<>;
         } else {
@@ -134,14 +134,17 @@ class Datatable {
                                     ;
 
     constexpr static auto indexer_type = (entry_groups
-            | fold_left(make_pair(_v<0>, type_list<>), [](/* concepts::pair_const */ auto group_list, /* concepts::list */ auto group_entries) {
+            | fold_left(make_pair(_v<0>, type_list<>), [](/* concepts::pair_const */ auto group_list,
+                                                          /* concepts::list */ auto group_entries) {
                 constexpr auto res = group_entries
                        | fold_left(make_pair(_v<0>, type_list<>)
-                                           , [group_list]<typename E>(concepts::pair_const auto inner_group, TypeConst<E>) {
+                                           , [group_list]<typename E>(concepts::pair_const auto inner_group
+                                                                     , TypeConst<E>) {
                            constexpr auto group_id = group_list.first;
                            constexpr auto inner_id = inner_group.first;
-                           return make_pair(_v<inner_id + 1>,
-                                           inner_group.second | append(make_pair(_v<E::key>, _v<group_id << 16 | inner_id>)));
+                           return make_pair(_v<inner_id + 1>
+                                           , inner_group.second
+                                           | append(make_pair(_v<E::key>, _v<group_id << 16 | inner_id>)));
                         });
                 return make_pair(_v<group_list.first + 1>, concat(group_list.second, res.second));
             })).second
