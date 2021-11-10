@@ -10,22 +10,27 @@ VALUE_LIST_NS_BEGIN
 namespace detail {
 template<template<auto...> class Target>
 struct ConvertToTargetValues {
-    template<concepts::pair_const auto... values>
-    consteval auto operator()(ValueList<values...>) const -> concepts::type_const auto {
-        return _t<Target<values...>>;
+    template<concepts::type_const... Types>
+    consteval auto operator()(TypeList<Types...>) const -> concepts::type_const auto {
+        return _t<Target<Types::type...>>;
     }
 
-    template<concepts::value_const auto... values>
-    consteval auto operator()(ValueList<values...>) const -> concepts::type_const auto {
-        return _t<Target<values.value...>>;
+    template<concepts::value_const... Values>
+    consteval auto operator()(TypeList<Values...>) const -> concepts::type_const auto {
+        return _t<Target<Values::value...>>;
     }
 };
 
 template<template<typename...> class Target>
 struct ConvertToTargetTypes {
-    template<concepts::type_const auto... types>
-    consteval auto operator()(ValueList<types...>) const -> concepts::type_const auto {
-        return _t<Target<get_typ<types>...>>;
+    template<concepts::type_const... Types>
+    consteval auto operator()(TypeList<Types...>) const -> concepts::type_const auto {
+        return _t<Target<typename Types::type...>>;
+    }
+
+    template<typename ... Types>
+    consteval auto operator()(TypeList<Types...>) const -> concepts::type_const auto {
+        return _t<Target<Types...>>;
     }
 };
 }

@@ -11,14 +11,17 @@
 VALUE_LIST_NS_BEGIN
 
 template<auto value>
-inline constexpr auto dispatch_value = _v<value>;
+struct DispatchValue { using type = ValueConst<value>; };
 
 template<concepts::value_const auto value>
-inline constexpr auto dispatch_value<value> = dispatch_value<value.value>;
+struct DispatchValue<value>: DispatchValue<value.value> { };
 
-template<concepts::val_or_typ auto value>
-requires (! concepts::value_const<decltype(value)>) // gcc needs it; msvc not need
-inline constexpr auto dispatch_value<value> = value;
+template<concepts::list auto ts>
+struct DispatchValue<ts> {
+    using type = std::decay_t<decltype(ts)>;
+};
 
+template<auto value>
+using dispatch_value = typename DispatchValue<value>::type;
 VALUE_LIST_NS_END
 #endif //VALUE_LIST_DISPATCH_VALUE_HPP

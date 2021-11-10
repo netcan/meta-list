@@ -8,24 +8,23 @@
 #include <value-list/algo/pipe_adapter.hpp>
 #include <value-list/algo/contain.hpp>
 VALUE_LIST_NS_BEGIN
+namespace detail {
+template<typename Result, typename ...Ts>
+struct UniqueImpl: std::type_identity<Result> { };
 
-struct UniqueFn {
-    consteval auto operator()(concepts::list auto vl) const -> concepts::list auto {
-        return invoke(vl);
-    }
-private:
-    consteval static auto invoke(concepts::list auto vl) -> concepts::list auto {
-        if constexpr (vl.empty()) { return value_list<>; }
-        else {
-            constexpr auto x = vl.head();
-            constexpr auto xs = vl.tail();
-            constexpr auto res = invoke(xs);
-            if constexpr (contain(res, x)) { return res; }
-            else { return res | prepend(x); }
-        }
-    }
-};
+template<typename ...Rs, typename T, typename ...Ts>
+struct UniqueImpl<TypeList<Rs...>, T, Ts...>:
+        std::conditional_t<detail::ContainImpl<T, Rs...>::value
+                , UniqueImpl<TypeList<Rs...>, Ts...>
+                , UniqueImpl<TypeList<Rs..., T>, Ts...> > {};
 
-inline constexpr auto unique = PipeAdapter<UniqueFn>{};
+template<typename ...Ts>
+using Unique_t = typename UniqueImpl<TypeList<>, Ts...>::type;
+}
+
+inline constexpr auto unique = PipeAdapter(
+    []<typename... Ts>(TypeList<Ts...>)
+    -> detail::Unique_t<Ts...> { return {}; }
+);
 VALUE_LIST_NS_END
 #endif //VALUE_LIST_UNIQUE_HPP

@@ -9,32 +9,25 @@
 #include <value-list/types/pair_c.hpp>
 #include <value-list/algo/pipe_adapter.hpp>
 #include <value-list/algo/append.hpp>
+#include <value-list/algo/is_pred_satisfied.hpp>
 VALUE_LIST_NS_BEGIN
+namespace detail {
+template<typename P, typename Res, typename ...Ts>
+struct PartitionImpl: std::type_identity<Res> { };
 
-struct PartitionFn {
-    template<concepts::list VL, typename P>
-    consteval auto operator()(VL vl, P p) const -> concepts::pair_const auto {
-        return invoke(vl, p, value_list<>, value_list<>);
-    }
-private:
-    template<concepts::list VL, typename P
-            , concepts::list Satisified
-            , concepts::list Rest>
-    consteval concepts::pair_const auto invoke(VL vl, P p, Satisified satisified, Rest rest) const {
-        if constexpr (vl.empty()) {
-            return pair<Satisified{}, Rest{}>;
-        } else {
-            constexpr auto x = vl.head();
-            constexpr auto xs = vl.tail();
-            if constexpr (p(x)) {
-                return invoke(xs, p, satisified | append(x), rest);
-            } else {
-                return invoke(xs, p, satisified, rest | append(x));
-            }
-        }
-    }
-};
+template<typename... S, typename ...R, typename P, typename T, typename ...Ts>
+struct PartitionImpl<P, Pair<TypeList<S...>, TypeList<R...>>, T, Ts...>
+        : std::conditional_t<is_pred_satisfied<P, T>
+                , PartitionImpl<P, Pair<TypeList<S..., T>, TypeList<R...>>, Ts...>
+                , PartitionImpl<P, Pair<TypeList<S...>, TypeList<R..., T>>, Ts...>> {};
 
-inline constexpr auto partition = PipeAdapter<PartitionFn> {};
+template<typename P, typename ...Ts>
+using Partition_t = typename PartitionImpl<P, Pair<TypeList<>, TypeList<>>, Ts...>::type;
+}
+
+inline constexpr auto partition = PipeAdapter(
+    []<typename P, typename... Ts>(TypeList<Ts...>, P)
+    -> detail::Partition_t<P, Ts...> { return {}; }
+);
 VALUE_LIST_NS_END
 #endif //VALUE_LIST_PARTITION_HPP

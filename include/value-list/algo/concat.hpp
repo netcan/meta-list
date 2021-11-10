@@ -5,12 +5,11 @@
 #ifndef VALUE_LIST_CONCAT_HPP
 #define VALUE_LIST_CONCAT_HPP
 #include <value-list/concept/list.hpp>
-#include <value-list/types/value_list_t.hpp>
+#include <value-list/types/type_list.hpp>
 VALUE_LIST_NS_BEGIN
-template<auto... l, auto ...r>
-consteval concepts::list auto concat(ValueList<l...>, ValueList<r...>) {
-    return ValueList<l..., r...>{};
-}
+template<typename... L, typename ...R>
+consteval auto concat(TypeList<L...>, TypeList<R...>)
+-> TypeList<L..., R...> { return {}; }
 
 template<concepts::list VL1, concepts::list VL2, concepts::list... VLRests>
 requires requires { sizeof...(VLRests) > 0; }

@@ -7,23 +7,25 @@
 #include <value-list/concept/list.hpp>
 #include <value-list/algo/pipe_adapter.hpp>
 #include <value-list/algo/prepend.hpp>
+#include <value-list/algo/is_pred_satisfied.hpp>
 VALUE_LIST_NS_BEGIN
-struct FilterFn {
-    template<concepts::list VL, typename P>
-    consteval concepts::list auto operator()(VL vl, P p) const {
-        if constexpr (vl.empty()) { return value_list<>; }
-        else {
-            constexpr auto x = vl.head();
-            constexpr auto xs = vl.tail();
-            if constexpr (p(x)) {
-                return (*this)(xs, p) | prepend(x);
-            } else {
-                return (*this)(xs, p);
-            }
-        }
-    }
-};
+namespace detail {
+template<typename P, typename Result, typename... Ts>
+struct FilterImpl: std::type_identity<Result> { };
 
-inline constexpr auto filter = PipeAdapter<FilterFn>{};
+template<typename P, typename ...Rs, typename H, typename... Ts>
+struct FilterImpl<P, TypeList<Rs...>, H, Ts...>:
+        std::conditional_t<is_pred_satisfied<P, H>
+        , FilterImpl<P, TypeList<Rs..., H>, Ts...>
+        , FilterImpl<P, TypeList<Rs...>, Ts...>> { };
+
+template<typename P, typename ...Ts>
+using Filter_t = typename FilterImpl<P, TypeList<>, Ts...>::type;
+}
+
+inline constexpr auto filter = PipeAdapter(
+    []<typename P, typename... Ts>(TypeList<Ts...>, P)
+    -> detail::Filter_t<P, Ts...> { return {}; }
+);
 VALUE_LIST_NS_END
 #endif //VALUE_LIST_FILTER_HPP

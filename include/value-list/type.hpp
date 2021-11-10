@@ -7,5 +7,5 @@
 #include <value-list/types/value_c.hpp>
 #include <value-list/types/type_c.hpp>
 #include <value-list/types/pair_c.hpp>
-#include <value-list/types/value_list_t.hpp>
+#include <value-list/types/type_list.hpp>
 #endif //VALUE_LIST_TYPE_HPP

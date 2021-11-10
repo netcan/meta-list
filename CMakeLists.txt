@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 set(META_VALUE_LIST_INC
         include/value-list/value_list_ns.hpp
-        include/value-list/types/value_list_t.hpp
+        include/value-list/types/type_list.hpp
         include/value-list/types/type_c.hpp
         include/value-list/types/value_c.hpp
         include/value-list/types/dispatch_value.hpp
@@ -19,7 +19,7 @@ set(META_VALUE_LIST_INC
         include/value-list/algo/concat.hpp
         include/value-list/algo/partition.hpp
         include/value-list/algo/contain.hpp
-        include/value-list/algo/unique.hpp include/value-list/types/pair_c.hpp include/value-list/algo/enumerate.hpp include/value-list/algo/flatten.hpp include/value-list/type.hpp include/value-list/algo/convert_to.hpp include/value-list/algo/convert_from.hpp)
+        include/value-list/algo/unique.hpp include/value-list/types/pair_c.hpp include/value-list/type.hpp include/value-list/algo/convert_to.hpp include/value-list/algo/convert_from.hpp include/value-list/algo/is_pred_satisfied.hpp)
 
 include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/include
@@ -33,6 +33,8 @@ add_executable(value_list_ut
 add_executable(datatable
         ${META_VALUE_LIST_INC}
         examples/datatable.cpp)
+
+message("CMAKE_CXX_FLAGS:" ${CMAKE_CXX_FLAGS})
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
 target_link_libraries(value_list_ut stdc++ m)

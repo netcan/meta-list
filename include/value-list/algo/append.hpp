@@ -9,11 +9,11 @@
 VALUE_LIST_NS_BEGIN
 
 inline constexpr auto append = PipeAdapter(
-        []<auto ...values, concepts::val_or_typ E
-        , concepts::val_or_typ... Es>(ValueList<values...> vl, E, Es...)
-        -> concepts::list auto {
-            return ValueList<values..., E{}, Es{}...>{};
-        });
+    []<concepts::val_or_typ E
+    , concepts::val_or_typ... Es
+    , typename ...Ts>(TypeList<Ts...> vl, E, Es...)
+    -> TypeList<Ts..., E, Es...> { return {}; }
+);
 
 VALUE_LIST_NS_END
 #endif //VALUE_LIST_APPEND_HPP

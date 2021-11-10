@@ -13,8 +13,6 @@
 #include <value-list/algo/partition.hpp>
 #include <value-list/algo/contain.hpp>
 #include <value-list/algo/unique.hpp>
-#include <value-list/algo/enumerate.hpp>
-#include <value-list/algo/flatten.hpp>
 #include <value-list/algo/convert_to.hpp>
 #include <value-list/algo/convert_from.hpp>
 

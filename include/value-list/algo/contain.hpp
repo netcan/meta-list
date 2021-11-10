@@ -6,10 +6,14 @@
 #define VALUE_LIST_CONTAIN_HPP
 #include <value-list/concept/list.hpp>
 VALUE_LIST_NS_BEGIN
-template<auto ...values, typename E>
-consteval bool contain(ValueList<values...>, E e) {
-    return ((values == e) || ...);
+namespace detail {
+template<typename E, typename ...Ts>
+using ContainImpl = ValueConst<(std::is_same_v<Ts, E> || ...)>;
 }
+
+template<typename ...Ts, typename E>
+consteval auto contain(TypeList<Ts...>, E e)
+-> detail::ContainImpl<E, Ts...> { return {}; }
 
 VALUE_LIST_NS_END
 #endif //VALUE_LIST_CONTAIN_HPP

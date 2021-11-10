@@ -6,7 +6,7 @@
 #define VALUE_LIST_PIPE_ADAPTER_HPP
 #include <concepts>
 #include <type_traits>
-#include <value-list/types/value_list_t.hpp>
+#include <value-list/types/type_list.hpp>
 #include <value-list/concept/list.hpp>
 #include <value-list/value_list_ns.hpp>
 VALUE_LIST_NS_BEGIN
@@ -17,7 +17,7 @@ struct PipeAdapter: private Fn {
     consteval PipeAdapter(Fn) {}
 
     template<typename... Args>
-    requires(std::invocable<Fn, ValueList<>, Args...>)
+    requires(std::invocable<Fn, TypeList<>, Args...>)
     consteval auto operator()(Args... args) const {
         return [=, this](concepts::list auto vl) consteval {
             return static_cast<const Fn &>(*this)(vl, args...);

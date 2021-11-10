@@ -7,19 +7,21 @@
 #include <type_traits>
 #include <value-list/value_list_ns.hpp>
 VALUE_LIST_NS_BEGIN
-template<auto f, auto s>
+template<typename F, typename S>
 struct Pair {
-    static constexpr auto first = f;
-    static constexpr auto second = s;
+    static constexpr F first {};
+    static constexpr S second {};
+//    using First = F;
+//    using Second = S;
     static constexpr auto is_pair_const = true;
 };
 
-template<auto f, auto s>
-inline constexpr auto pair = Pair<f, s>{};
+template<typename F, typename S>
+inline constexpr auto pair = Pair<F, S>{};
 
-template<auto fl, auto sl, auto fr, auto sr>
-consteval bool operator==(Pair<fl, sl>, Pair<fr, sr>) {
-    return fl == fr && sl == sr;
+template<typename FL, typename SL, typename FR, typename SR>
+consteval bool operator==(Pair<FL, SL>, Pair<FR, SR>) {
+    return std::is_same_v<FL, FR> && std::is_same_v<SL, SR>;
 }
 
 VALUE_LIST_NS_END

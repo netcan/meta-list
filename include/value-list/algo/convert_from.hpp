@@ -5,7 +5,7 @@
 #ifndef VALUE_LIST_CONVERT_FROM_HPP
 #define VALUE_LIST_CONVERT_FROM_HPP
 #include <value-list/concept/list.hpp>
-#include <value-list/types/value_list_t.hpp>
+#include <value-list/types/type_list.hpp>
 
 VALUE_LIST_NS_BEGIN
 template<typename T>
