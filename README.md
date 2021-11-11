@@ -1,4 +1,4 @@
-# meta-value-list
+# meta-list
 This library provides a bunch of consteval toolsets to do metaprogramming,
 and provides the pipeline syntactic sugar for function combination, 
 its experience is better than traditional template metaprogramming.

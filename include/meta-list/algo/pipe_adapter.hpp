@@ -2,14 +2,14 @@
 // Created by netcan on 2021/11/06.
 //
 
-#ifndef VALUE_LIST_PIPE_ADAPTER_HPP
-#define VALUE_LIST_PIPE_ADAPTER_HPP
+#ifndef META_LIST_PIPE_ADAPTER_HPP
+#define META_LIST_PIPE_ADAPTER_HPP
 #include <concepts>
 #include <type_traits>
-#include <value-list/types/type_list.hpp>
-#include <value-list/concept/list.hpp>
-#include <value-list/value_list_ns.hpp>
-VALUE_LIST_NS_BEGIN
+#include <meta-list/types/type_list.hpp>
+#include <meta-list/concept/list.hpp>
+#include <meta-list/meta_list_ns.hpp>
+META_LIST_NS_BEGIN
 
 template<typename Fn>
 struct PipeAdapter: private Fn {
@@ -32,5 +32,5 @@ consteval auto operator|(VL vl, Adapter adapter) {
     return adapter(vl);
 }
 
-VALUE_LIST_NS_END
-#endif //VALUE_LIST_PIPE_ADAPTER_HPP
+META_LIST_NS_END
+#endif //META_LIST_PIPE_ADAPTER_HPP

@@ -3,12 +3,12 @@
 //
 
 #include <catch_amalgamated.hpp>
-#include <value-list/type.hpp>
-#include <value-list/algorithm.hpp>
+#include <meta-list/type.hpp>
+#include <meta-list/algorithm.hpp>
 #include <vector>
 #include <variant>
 
-using namespace VALUE_LIST_NS;
+using namespace META_LIST_NS;
 
 template<auto...>
 struct dump;

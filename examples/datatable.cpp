@@ -1,15 +1,15 @@
 //
 // Created by netcan on 2021/11/7.
 //
-#include <value-list/type.hpp>
-#include <value-list/algorithm.hpp>
+#include <meta-list/type.hpp>
+#include <meta-list/algorithm.hpp>
 #include <cstdint>
 #include <concepts>
 #include <bitset>
 #include <algorithm>
 #include <cassert>
 
-using namespace VALUE_LIST_NS;
+using namespace META_LIST_NS;
 
 ///////////////////////////////////////////////////////////////////////////////
 // for user to describe key/valuetype Entry

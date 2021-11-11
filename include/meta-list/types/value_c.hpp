@@ -2,10 +2,10 @@
 // Created by netcan on 2021/11/5.
 //
 
-#ifndef VALUE_LIST_VALUE_C_HPP
-#define VALUE_LIST_VALUE_C_HPP
-#include <value-list/value_list_ns.hpp>
-VALUE_LIST_NS_BEGIN
+#ifndef META_LIST_VALUE_C_HPP
+#define META_LIST_VALUE_C_HPP
+#include <meta-list/meta_list_ns.hpp>
+META_LIST_NS_BEGIN
 
 template<auto v>
 struct ValueConst {
@@ -27,5 +27,5 @@ consteval bool operator==(ValueConst<l>, ValueConst<r>) {
     return l == r;
 }
 
-VALUE_LIST_NS_END
-#endif //VALUE_LIST_VALUE_C_HPP
+META_LIST_NS_END
+#endif //META_LIST_VALUE_C_HPP

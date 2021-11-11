@@ -2,13 +2,13 @@
 // Created by netcan on 2021/11/6.
 //
 
-#ifndef VALUE_LIST_FILTER_HPP
-#define VALUE_LIST_FILTER_HPP
-#include <value-list/concept/list.hpp>
-#include <value-list/algo/pipe_adapter.hpp>
-#include <value-list/algo/prepend.hpp>
-#include <value-list/algo/is_pred_satisfied.hpp>
-VALUE_LIST_NS_BEGIN
+#ifndef META_LIST_FILTER_HPP
+#define META_LIST_FILTER_HPP
+#include <meta-list/concept/list.hpp>
+#include <meta-list/algo/pipe_adapter.hpp>
+#include <meta-list/algo/prepend.hpp>
+#include <meta-list/algo/is_pred_satisfied.hpp>
+META_LIST_NS_BEGIN
 namespace detail {
 template<typename P, typename Result, typename... Ts>
 struct FilterImpl: std::type_identity<Result> { };
@@ -27,5 +27,5 @@ inline constexpr auto filter = PipeAdapter(
     []<typename P, typename... Ts>(TypeList<Ts...>, P)
     -> detail::Filter_t<P, Ts...> { return {}; }
 );
-VALUE_LIST_NS_END
-#endif //VALUE_LIST_FILTER_HPP
+META_LIST_NS_END
+#endif //META_LIST_FILTER_HPP

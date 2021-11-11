@@ -2,11 +2,11 @@
 // Created by netcan on 2021/11/6.
 //
 
-#ifndef VALUE_LIST_FOLD_LEFT_HPP
-#define VALUE_LIST_FOLD_LEFT_HPP
-#include <value-list/concept/list.hpp>
-#include <value-list/algo/pipe_adapter.hpp>
-VALUE_LIST_NS_BEGIN
+#ifndef META_LIST_FOLD_LEFT_HPP
+#define META_LIST_FOLD_LEFT_HPP
+#include <meta-list/concept/list.hpp>
+#include <meta-list/algo/pipe_adapter.hpp>
+META_LIST_NS_BEGIN
 namespace detail {
 template<typename Op, typename Acc, typename ...Ts>
 struct FoldImpl: std::type_identity<Acc> {};
@@ -24,5 +24,5 @@ inline constexpr auto fold_left = PipeAdapter(
         -> detail::Fold_t<Op, Acc, Ts...> { return {}; }
  );
 
-VALUE_LIST_NS_END
-#endif //VALUE_LIST_FOLD_LEFT_HPP
+META_LIST_NS_END
+#endif //META_LIST_FOLD_LEFT_HPP

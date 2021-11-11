@@ -2,11 +2,11 @@
 // Created by netcan on 2021/11/7.
 //
 
-#ifndef VALUE_LIST_PAIR_C_HPP
-#define VALUE_LIST_PAIR_C_HPP
+#ifndef META_LIST_PAIR_C_HPP
+#define META_LIST_PAIR_C_HPP
 #include <type_traits>
-#include <value-list/value_list_ns.hpp>
-VALUE_LIST_NS_BEGIN
+#include <meta-list/meta_list_ns.hpp>
+META_LIST_NS_BEGIN
 template<typename F, typename S>
 struct Pair {
     static constexpr F first {};
@@ -24,5 +24,5 @@ consteval bool operator==(Pair<FL, SL>, Pair<FR, SR>) {
     return std::is_same_v<FL, FR> && std::is_same_v<SL, SR>;
 }
 
-VALUE_LIST_NS_END
-#endif //VALUE_LIST_PAIR_C_HPP
+META_LIST_NS_END
+#endif //META_LIST_PAIR_C_HPP

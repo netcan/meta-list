@@ -2,12 +2,12 @@
 // Created by netcan on 2021/11/7.
 //
 
-#ifndef VALUE_LIST_UNIQUE_HPP
-#define VALUE_LIST_UNIQUE_HPP
-#include <value-list/concept/list.hpp>
-#include <value-list/algo/pipe_adapter.hpp>
-#include <value-list/algo/contain.hpp>
-VALUE_LIST_NS_BEGIN
+#ifndef META_LIST_UNIQUE_HPP
+#define META_LIST_UNIQUE_HPP
+#include <meta-list/concept/list.hpp>
+#include <meta-list/algo/pipe_adapter.hpp>
+#include <meta-list/algo/contain.hpp>
+META_LIST_NS_BEGIN
 namespace detail {
 template<typename Result, typename ...Ts>
 struct UniqueImpl: std::type_identity<Result> { };
@@ -26,5 +26,5 @@ inline constexpr auto unique = PipeAdapter(
     []<typename... Ts>(TypeList<Ts...>)
     -> detail::Unique_t<Ts...> { return {}; }
 );
-VALUE_LIST_NS_END
-#endif //VALUE_LIST_UNIQUE_HPP
+META_LIST_NS_END
+#endif //META_LIST_UNIQUE_HPP

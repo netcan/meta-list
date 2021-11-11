@@ -2,15 +2,15 @@
 // Created by netcan on 2021/11/6.
 //
 
-#ifndef VALUE_LIST_PARTITION_HPP
-#define VALUE_LIST_PARTITION_HPP
-#include <value-list/concept/list.hpp>
-#include <value-list/concept/value_or_type.hpp>
-#include <value-list/types/pair_c.hpp>
-#include <value-list/algo/pipe_adapter.hpp>
-#include <value-list/algo/append.hpp>
-#include <value-list/algo/is_pred_satisfied.hpp>
-VALUE_LIST_NS_BEGIN
+#ifndef META_LIST_PARTITION_HPP
+#define META_LIST_PARTITION_HPP
+#include <meta-list/concept/list.hpp>
+#include <meta-list/concept/value_or_type.hpp>
+#include <meta-list/types/pair_c.hpp>
+#include <meta-list/algo/pipe_adapter.hpp>
+#include <meta-list/algo/append.hpp>
+#include <meta-list/algo/is_pred_satisfied.hpp>
+META_LIST_NS_BEGIN
 namespace detail {
 template<typename P, typename Res, typename ...Ts>
 struct PartitionImpl: std::type_identity<Res> { };
@@ -29,5 +29,5 @@ inline constexpr auto partition = PipeAdapter(
     []<typename P, typename... Ts>(TypeList<Ts...>, P)
     -> detail::Partition_t<P, Ts...> { return {}; }
 );
-VALUE_LIST_NS_END
-#endif //VALUE_LIST_PARTITION_HPP
+META_LIST_NS_END
+#endif //META_LIST_PARTITION_HPP

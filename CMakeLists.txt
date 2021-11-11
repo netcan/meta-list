@@ -4,22 +4,22 @@ project(value_list)
 set(CMAKE_CXX_STANDARD 20)
 
 set(META_VALUE_LIST_INC
-        include/value-list/value_list_ns.hpp
-        include/value-list/types/type_list.hpp
-        include/value-list/types/type_c.hpp
-        include/value-list/types/value_c.hpp
-        include/value-list/types/dispatch_value.hpp
-        include/value-list/algo/pipe_adapter.hpp
-        include/value-list/algo/filter.hpp
-        include/value-list/concept/list.hpp
-        include/value-list/algo/fold_left.hpp
-        include/value-list/algo/append.hpp
-        include/value-list/algo/prepend.hpp
-        include/value-list/concept/value_or_type.hpp
-        include/value-list/algo/concat.hpp
-        include/value-list/algo/partition.hpp
-        include/value-list/algo/contain.hpp
-        include/value-list/algo/unique.hpp include/value-list/types/pair_c.hpp include/value-list/type.hpp include/value-list/algo/convert_to.hpp include/value-list/algo/convert_from.hpp include/value-list/algo/is_pred_satisfied.hpp)
+        include/meta-list/meta_list_ns.hpp
+        include/meta-list/types/type_list.hpp
+        include/meta-list/types/type_c.hpp
+        include/meta-list/types/value_c.hpp
+        include/meta-list/types/dispatch_value.hpp
+        include/meta-list/algo/pipe_adapter.hpp
+        include/meta-list/algo/filter.hpp
+        include/meta-list/concept/list.hpp
+        include/meta-list/algo/fold_left.hpp
+        include/meta-list/algo/append.hpp
+        include/meta-list/algo/prepend.hpp
+        include/meta-list/concept/value_or_type.hpp
+        include/meta-list/algo/concat.hpp
+        include/meta-list/algo/partition.hpp
+        include/meta-list/algo/contain.hpp
+        include/meta-list/algo/unique.hpp include/meta-list/types/pair_c.hpp include/meta-list/type.hpp include/meta-list/algo/convert_to.hpp include/meta-list/algo/convert_from.hpp include/meta-list/algo/is_pred_satisfied.hpp)
 
 include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/include

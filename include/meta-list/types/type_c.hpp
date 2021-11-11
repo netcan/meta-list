@@ -2,13 +2,13 @@
 // Created by netcan on 2021/11/5.
 //
 
-#ifndef VALUE_LIST_TYPE_C_HPP
-#define VALUE_LIST_TYPE_C_HPP
+#ifndef META_LIST_TYPE_C_HPP
+#define META_LIST_TYPE_C_HPP
 #include <type_traits>
-#include <value-list/value_list_ns.hpp>
-#include <value-list/concept/value_or_type.hpp>
+#include <meta-list/meta_list_ns.hpp>
+#include <meta-list/concept/value_or_type.hpp>
 
-VALUE_LIST_NS_BEGIN
+META_LIST_NS_BEGIN
 template<typename T>
 struct TypeConst {
     using type = T;
@@ -26,5 +26,5 @@ consteval bool operator==(TypeConst<L>, TypeConst<R>) {
     return std::is_same_v<L, R>;
 }
 
-VALUE_LIST_NS_END
-#endif //VALUE_LIST_TYPE_C_HPP
+META_LIST_NS_END
+#endif //META_LIST_TYPE_C_HPP

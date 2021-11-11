@@ -2,13 +2,13 @@
 // Created by netcan on 2021/11/5.
 //
 
-#ifndef VALUE_LIST_DISPATCH_VALUE_HPP
-#define VALUE_LIST_DISPATCH_VALUE_HPP
-#include <value-list/types/value_c.hpp>
-#include <value-list/concept/value_or_type.hpp>
-#include <value-list/concept/list.hpp>
-#include <value-list/value_list_ns.hpp>
-VALUE_LIST_NS_BEGIN
+#ifndef META_LIST_DISPATCH_VALUE_HPP
+#define META_LIST_DISPATCH_VALUE_HPP
+#include <meta-list/types/value_c.hpp>
+#include <meta-list/concept/value_or_type.hpp>
+#include <meta-list/concept/list.hpp>
+#include <meta-list/meta_list_ns.hpp>
+META_LIST_NS_BEGIN
 
 template<auto value>
 struct DispatchValue { using type = ValueConst<value>; };
@@ -23,5 +23,5 @@ struct DispatchValue<ts> {
 
 template<auto value>
 using dispatch_value = typename DispatchValue<value>::type;
-VALUE_LIST_NS_END
-#endif //VALUE_LIST_DISPATCH_VALUE_HPP
+META_LIST_NS_END
+#endif //META_LIST_DISPATCH_VALUE_HPP

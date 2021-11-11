@@ -2,12 +2,12 @@
 // Created by netcan on 2021/11/6.
 //
 
-#ifndef VALUE_LIST_LIST_HPP
-#define VALUE_LIST_LIST_HPP
+#ifndef META_LIST_LIST_HPP
+#define META_LIST_LIST_HPP
 #include <concepts>
 #include <cstddef>
-#include <value-list/value_list_ns.hpp>
-VALUE_LIST_NS_BEGIN
+#include <meta-list/meta_list_ns.hpp>
+META_LIST_NS_BEGIN
 namespace concepts {
 template<typename List>
 concept list = requires(List l) {
@@ -16,5 +16,5 @@ concept list = requires(List l) {
     requires l.is_type_list;
 };
 }
-VALUE_LIST_NS_END
-#endif //VALUE_LIST_LIST_HPP
+META_LIST_NS_END
+#endif //META_LIST_LIST_HPP

@@ -2,14 +2,14 @@
 // Created by netcan on 2021/11/5.
 //
 
-#ifndef VALUE_LIST_VALUE_LIST_H
-#define VALUE_LIST_VALUE_LIST_H
-#include <value-list/types/dispatch_value.hpp>
-#include <value-list/concept/value_or_type.hpp>
-#include <value-list/value_list_ns.hpp>
+#ifndef META_LIST_META_LIST_H
+#define META_LIST_META_LIST_H
+#include <meta-list/types/dispatch_value.hpp>
+#include <meta-list/concept/value_or_type.hpp>
+#include <meta-list/meta_list_ns.hpp>
 #include <cstddef>
 #include <tuple>
-VALUE_LIST_NS_BEGIN
+META_LIST_NS_BEGIN
 template<typename... Ts>
 struct TypeList {
     consteval size_t size() const { return sizeof...(Ts); }
@@ -38,5 +38,5 @@ consteval bool operator==(TypeList<lhs...>, TypeList<rhs...>) {
     else { return ((lhs{} == rhs{}) && ...); }
 }
 
-VALUE_LIST_NS_END
-#endif //VALUE_LIST_VALUE_LIST_H
+META_LIST_NS_END
+#endif //META_LIST_META_LIST_H
