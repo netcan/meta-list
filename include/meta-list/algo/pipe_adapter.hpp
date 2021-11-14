@@ -13,7 +13,6 @@ META_LIST_NS_BEGIN
 
 template<typename Fn>
 struct PipeAdapter: private Fn {
-    consteval PipeAdapter() = default;
     consteval PipeAdapter(Fn) {}
 
     template<typename... Args>
